@@ -24,6 +24,8 @@ This document outlines a safe, incremental path to convert the site to mobile‑
 ### Phase 1 — Image pipeline and directory structure
 - Introduce an optimized image tree alongside existing `images/` so we can migrate safely:
 
+- Scope: Only generate optimized derivatives for images currently referenced by production pages (`index.html`, `portfolio.html`, `about.html`). Exclude `page_concepts/`, inspiration assets, and any images not referenced on these pages.
+
 ```
 images/
   (originals ...)
