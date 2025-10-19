@@ -152,7 +152,6 @@
 
         .story-header {
             text-align: left;
-            margin-bottom: 12px;
             grid-column: 1 / -1;
         }
 
@@ -162,7 +161,6 @@
             font-weight: 400;
             color: #9a7d55;
             margin-top: 56px;
-            margin-bottom: 24px;
             letter-spacing: -0.02em;
             line-height: 1.1;
         }
@@ -178,6 +176,11 @@
             display: flex;
             flex-direction: column;
             gap: 24px;
+            padding: 0 20px;
+        }
+
+        .founder-signature-in-story {
+            padding: 0 20px;
         }
 
         .story-paragraph {
@@ -185,6 +188,7 @@
             line-height: 1.7;
             color: #2C2C2C;
             margin-bottom: 16px;
+            margin-top: 0;
         }
 
         .story-paragraph.lead {
@@ -203,10 +207,16 @@
 
         .story-paragraph.highlight {
             font-family: 'Baskerville', Palatino, Garamond, serif;
-            font-size: 18px;
-            line-height: 1.7;
+            font-size: 20px;
+            line-height: 1.8;
             color: #1A1A1A;
-            font-weight: 500;
+            font-weight: 400;
+        }
+
+        .story-paragraph.highlight em {
+            font-size: 24px;
+            font-style: italic;
+            color: #9a7d55;
         }
 
         /* Sidebar Components */
@@ -414,18 +424,24 @@
                 height: 150px;
             }
 
-            .signature-image {
-                height: 150px;
-            }
 
             .founder-signature-in-story {
                 margin-top: 32px;
+                margin-bottom: 64px;
             }
 
             .founder-signature {
-                grid-template-columns: 1fr;
+                display: flex;
+                flex-direction: column;
                 gap: 24px;
                 text-align: center;
+                align-items: center;
+            }
+
+            .founder-signature .signature-image {
+                width: 100%;
+                max-width: 250px;
+                height: auto;
             }
         }
 
@@ -500,7 +516,7 @@
 
                     <p class="story-paragraph">After earning my design degree and working for several years in the industry, Glen gave me a special piece of our family's history: a furniture catalog from the 1930s that belonged to my great-grandmother, Marion Kennedy, who was one of the first female interior designers in the United States.</p>
 
-                    <p class="story-paragraph highlight"><strong>On the catalog cover was her business card, listing her phone number: 1584 W.</strong></p>
+                    <p class="story-paragraph highlight"><em>On the catalog cover was her business card, listing her phone number: 1584 W.</em></p>
 
                     <p class="story-paragraph">In 2021, after 27 years of experience transforming residential and commercial spaces, I started my own business with my daughter Dakota. We wanted a name that honored our family's creative legacy.</p>
 
