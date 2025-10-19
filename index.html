@@ -854,10 +854,6 @@
                 max-width: none;
             }
 
-            .portfolio-preview-cards {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
 
 
         }
@@ -893,12 +889,9 @@
                 padding-right: 16px;
             }
 
-            /* Fix portfolio cards layout */
-            .portfolio-preview-cards {
-                grid-template-columns: 1fr;  /* FORCE single column */
-                gap: 16px;  /* Reduce gap for mobile */
-                width: 100%;
-                margin: 0;
+            /* Fix portfolio cards layout - already handled by @media (max-width: 768px) above */
+            .card-preview {
+                min-height: 260px;
             }
 
             .social-proof-section {
@@ -1060,8 +1053,7 @@
                 margin-right: calc(-50vw + 50%);
             }
 
-            /* Grids that commonly overflow in this band */
-            .portfolio-preview-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            /* Grids that commonly overflow in this band - portfolio cards handled by responsive breakpoints above */
             .toolkit-showcase { grid-template-columns: repeat(2, minmax(180px, 1fr)); }
 
             /* Targeted horizontal overflow control */
@@ -1304,6 +1296,18 @@
             z-index: 2;
         }
 
+        /* Portfolio cards responsive behavior for narrower screens */
+        @media (max-width: 768px) {
+            .portfolio-preview-cards {
+                grid-template-columns: 1fr !important;
+                gap: 20px;
+            }
+
+            .card-preview {
+                min-height: 280px;
+            }
+        }
+
         .portfolio-card {
             background: #FAFAF7;
             border-radius: 0px;
@@ -1334,6 +1338,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            min-height: 200px;
         }
 
         .card-preview img {
@@ -1379,6 +1384,12 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             width: 100%;
+        }
+
+        /* Portfolio section padding override */
+        .portfolio-preview-section.section {
+            padding-top: 80px;
+            padding-bottom: 24px;
         }
     </style>
 </head>
