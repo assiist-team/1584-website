@@ -561,18 +561,36 @@
             }
 
             .portfolio-nav-menu {
-                flex-direction: column;
-                gap: 1px;
+                flex-direction: row;
+                gap: 0;
+                overflow-x: auto;
+                overflow-y: hidden;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none; /* Firefox */
+                -ms-overflow-style: none; /* IE and Edge */
+                justify-content: flex-start;
+                scroll-behavior: smooth;
+            }
+
+            .portfolio-nav-menu::-webkit-scrollbar {
+                display: none; /* Chrome, Safari, and Opera */
             }
 
             .portfolio-nav-menu li {
-                flex: none;
+                flex: 0 0 auto;
+                min-width: fit-content;
             }
 
             .portfolio-nav-link {
-                padding: 12px 16px;
+                padding: 12px 20px;
                 font-size: 12px;
                 background: #F5F2ED;
+                white-space: nowrap;
+                border-bottom: 3px solid transparent;
+            }
+
+            .portfolio-nav-link:first-child {
+                margin-left: 0;
             }
 
             .portfolio-category-section {
@@ -1016,6 +1034,12 @@
         document.addEventListener('DOMContentLoaded', function() {
             initializePortfolio();
             setupPortfolioNavigation();
+
+            // Reset horizontal scroll position to start
+            const portfolioNavMenu = document.querySelector('.portfolio-nav-menu');
+            if (portfolioNavMenu) {
+                portfolioNavMenu.scrollLeft = 0;
+            }
 
             // Close modal when clicking outside
             const modal = document.getElementById('galleryModal');
