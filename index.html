@@ -864,6 +864,195 @@
 
         }
 
+        /* Intermediate breakpoint for 481-603px to prevent layout issues */
+        @media (min-width: 481px) and (max-width: 603px) {
+            /* Ensure no horizontal gaps and no bottom gaps */
+            html, body {
+                overflow-x: hidden;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Container adjustments for this range */
+            .container {
+                max-width: 100vw;
+                padding: 0 16px;
+                margin: 0;
+                width: 100%;
+            }
+
+            /* Ensure sections take full width without bottom gaps */
+            .section {
+                width: 100%;
+                margin: 0;
+                padding: 64px 0; /* Use same padding as mobile for consistency */
+            }
+
+            /* Ensure no bottom gaps on sections */
+            .section:last-of-type {
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+
+            /* Hero section adjustments - no bottom gaps */
+            .hero {
+                width: 100vw;
+                margin-left: calc(-50vw + 50%);
+                margin-right: calc(-50vw + 50%);
+                margin-top: 64px; /* Consistent with mobile */
+                margin-bottom: 0; /* Ensure no bottom gap */
+                height: 100vh;
+                min-height: 70vh; /* Between mobile and desktop */
+            }
+
+            /* Footer adjustments - no bottom gaps */
+            .footer {
+                width: 100vw;
+                margin-left: calc(-50vw + 50%);
+                margin-right: calc(-50vw + 50%);
+                margin-top: 0; /* No top margin */
+                margin-bottom: 0; /* No bottom margin */
+                overflow-x: hidden;
+                padding: 60px 0 40px; /* Consistent padding */
+            }
+
+            /* Portfolio cards layout */
+            .portfolio-preview-cards {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                width: 100%;
+                margin: 0;
+            }
+
+            /* Process section adjustments */
+            .process-section {
+                min-height: 80vh; /* Between mobile and desktop */
+                padding-top: 80px; /* Reduced from 120px for this range */
+            }
+
+            .process-content {
+                padding: 40px 16px;
+                gap: 40px;
+            }
+
+            /* Social proof section adjustments */
+            .social-proof-section {
+                min-height: 70vh;
+                padding-top: 80px; /* Reduced from 120px */
+            }
+
+            /* Lead magnet adjustments */
+            .lead-magnet {
+                min-height: 450px;
+            }
+
+            .toolkit-showcase {
+                grid-template-columns: 200px 200px;
+                gap: 40px;
+            }
+
+            .toolkit-column {
+                width: 200px;
+            }
+
+            .toolkit-image {
+                width: 100%;
+                height: 258px;
+            }
+
+            /* Footer styles for this breakpoint - ensure no bottom gaps */
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 0 16px 40px 16px;
+                text-align: center;
+                margin: 0; /* No margins */
+                width: 100%;
+            }
+
+            .footer-brand {
+                max-width: none;
+                margin-bottom: 0; /* No bottom margin */
+            }
+
+            .footer-bottom {
+                padding: 20px 16px 0;
+                margin: 0;
+                max-width: none;
+                width: 100%;
+                border-top: 1px solid rgba(250, 250, 247, 0.1);
+            }
+
+            .footer-section {
+                margin-bottom: 0; /* No bottom margins */
+                width: 100%;
+                max-width: none;
+            }
+
+            .footer-description {
+                font-size: 15px;
+                line-height: 1.5;
+                margin-bottom: 24px;
+            }
+
+            .footer-section h3 {
+                font-size: 18px;
+                margin-bottom: 20px;
+            }
+
+            .footer-links a,
+            .footer-contact a {
+                font-size: 14px;
+            }
+
+            .footer-contact li {
+                margin-bottom: 16px;
+            }
+
+            .footer-social {
+                gap: 16px;
+                justify-content: center;
+                margin-bottom: 0; /* No bottom margin */
+            }
+
+            .social-link {
+                width: 40px;
+                height: 40px;
+            }
+
+            .footer-contact {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                margin-bottom: 0; /* No bottom margin */
+            }
+
+            .footer-contact li {
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 16px;
+            }
+
+            /* Ensure no bottom gaps on any elements */
+            .footer *:last-child {
+                margin-bottom: 0;
+            }
+
+            /* Navigation adjustments for this range */
+            .navigation {
+                width: 100vw;
+                margin-left: calc(-50vw + 50%);
+                margin-right: calc(-50vw + 50%);
+            }
+
+            .nav-container {
+                max-width: 100vw;
+                padding: 0 16px;
+            }
+        }
+
         @media (max-width: 480px) {
             .hero-logo {
                 height: 75px;
@@ -887,12 +1076,17 @@
                 width: 100%;
             }
 
-            /* Ensure all sections take full width */
+            /* Ensure all sections take full width without bottom gaps */
             .section {
                 width: 100%;
                 margin: 0;
-                padding-left: 16px;
-                padding-right: 16px;
+                padding: 64px 16px; /* Ensure consistent padding without bottom gaps */
+            }
+
+            /* Ensure no bottom gaps on sections */
+            .section:last-of-type {
+                margin-bottom: 0;
+                padding-bottom: 0;
             }
 
             /* Fix portfolio cards layout */
