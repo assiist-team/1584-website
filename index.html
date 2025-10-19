@@ -865,16 +865,43 @@
             }
 
             .container {
+                max-width: 100vw;
                 padding: 0 16px;
+                margin: 0;
             }
 
+            /* Ensure body doesn't show background on sides */
+            body {
+                background-color: #1A1A1A;
+            }
+
+            /* Prevent horizontal overflow */
+            html, body {
+                overflow-x: hidden;
+                width: 100%;
+            }
+
+            /* Ensure all sections take full width */
+            .section {
+                width: 100%;
+                margin: 0;
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            /* Fix portfolio cards layout */
+            .portfolio-preview-cards {
+                grid-template-columns: 1fr;  /* FORCE single column */
+                gap: 16px;  /* Reduce gap for mobile */
+                width: 100%;
+                margin: 0;
+            }
+
+            /* Ensure hero takes full width */
             .hero {
-                min-height: 50vh;
-                display: flex;
-                align-items: flex-start;
-                justify-content: center;
-                text-align: center;
-                padding-top: 8vh;
+                width: 100vw;
+                margin-left: calc(-50vw + 50%);
+                margin-right: calc(-50vw + 50%);
             }
 
             .social-proof-section {
