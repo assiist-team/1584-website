@@ -843,6 +843,7 @@
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 40px;
+                padding: 0 16px 40px 16px;
                 text-align: center;
             }
 
@@ -966,6 +967,90 @@
                 padding: 12px 24px;
                 font-size: 13px;
             }
+
+            /* Footer mobile layout fix */
+            .footer {
+                padding: 40px 0 20px; /* Reduce padding significantly */
+                width: 100vw; /* Use full viewport width */
+                margin-left: calc(-50vw + 50%); /* Extend to screen edges */
+                margin-right: calc(-50vw + 50%);
+                overflow-x: hidden; /* Prevent any overflow */
+            }
+
+            .footer-content {
+                display: grid; /* Ensure grid layout */
+                grid-template-columns: 1fr !important; /* Force single column */
+                gap: 20px; /* Reduced spacing for mobile */
+                padding: 0 16px; /* Mobile padding */
+                margin: 0; /* No centering */
+                max-width: none; /* Remove width constraints */
+                width: 100%; /* Full width */
+            }
+
+            .footer-bottom {
+                padding: 20px 16px 0; /* Minimal padding */
+                margin: 0; /* No centering */
+                max-width: none; /* Remove width constraints */
+                width: 100%; /* Full width */
+            }
+
+            .footer-section {
+                margin-bottom: 0; /* Remove extra margin since gap handles spacing */
+                width: 100%; /* Full width */
+                max-width: none; /* Remove constraints */
+            }
+
+            .footer-brand {
+                width: 100%; /* Full width */
+                max-width: none; /* Remove brand width limit */
+            }
+
+            .footer-logo img {
+                height: 40px; /* Smaller logo for mobile */
+            }
+
+            .footer-description {
+                font-size: 14px; /* Smaller text for mobile */
+                line-height: 1.5;
+                margin-bottom: 20px;
+            }
+
+            .footer-section h3 {
+                font-size: 16px; /* Smaller headings */
+                margin-bottom: 16px;
+            }
+
+            .footer-links a,
+            .footer-contact a {
+                font-size: 13px; /* Smaller links */
+            }
+
+            .footer-contact li {
+                margin-bottom: 12px; /* Tighter spacing */
+            }
+
+            .footer-social {
+                gap: 12px; /* Tighter social icon spacing */
+                justify-content: center; /* Center social icons */
+            }
+
+            .social-link {
+                width: 36px; /* Smaller social icons */
+                height: 36px;
+            }
+
+            .footer-contact {
+                display: flex; /* Change to flex for centering */
+                flex-direction: column; /* Stack vertically */
+                align-items: center; /* Center items horizontally */
+                text-align: center; /* Center text within items */
+            }
+
+            .footer-contact li {
+                justify-content: center; /* Center each contact item */
+                align-items: center; /* Center icon and text */
+                margin-bottom: 12px; /* Tighter spacing */
+            }
         }
 
         /* Desktop Enhancements */
@@ -1029,15 +1114,15 @@
         .footer-content {
             max-width: 1440px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 80px 60px 80px;
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 60px;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 80px;
             align-items: start;
         }
 
         .footer-brand {
-            max-width: 400px;
+            max-width: 500px;
         }
 
         .footer-logo {
@@ -1139,7 +1224,7 @@
         .footer-bottom {
             max-width: 1440px;
             margin: 0 auto;
-            padding: 40px 24px 0;
+            padding: 32px 24px 0;
             border-top: 1px solid rgba(250, 250, 247, 0.1);
             text-align: center;
             color: rgba(250, 250, 247, 0.6);
@@ -1408,42 +1493,17 @@
                     We specialize in creating beautiful, functional interiors for vacation rental properties that maximize guest satisfaction and investment returns. Based in St. George, Utah, serving vacation rental owners nationwide.
                 </p>
                 <div class="footer-social">
-                    <a href="#" class="social-link" aria-label="Facebook">
+                    <a href="https://www.facebook.com/lisa.s.fisher.92/" class="social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                         </svg>
                     </a>
-                    <a href="#" class="social-link" aria-label="Instagram">
+                    <a href="https://www.instagram.com/1584_design/" class="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987s11.987-5.367 11.987-11.987C24.014 5.367 18.647.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.337-1.297-.889-.807-1.337-1.807-1.337-3.001 0-1.193.448-2.193 1.337-3.001.889-.807 2.04-1.297 3.337-1.297 1.297 0 2.448.49 3.337 1.297.889.808 1.337 1.808 1.337 3.001 0 1.194-.448 2.194-1.337 3.001-.889.807-2.04 1.297-3.337 1.297z"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Pinterest">
-                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 0C5.374 0 0 5.372 0 12.017 0 16.4 2.331 20.027 5.686 21.6c-.076-.664-.145-1.685.03-2.409.157-.649.995-4.218.995-4.218s-.254-.508-.254-1.259c0-1.179.684-2.057 1.537-2.057.724 0 1.073.543 1.073 1.194 0 .728-.464 1.817-.704 2.826-.2.845.424 1.533 1.26 1.533 1.512 0 2.672-1.595 2.672-3.89 0-2.035-1.462-3.456-3.549-3.456-2.415 0-3.831 1.813-3.831 3.685 0 .731.281 1.514.632 1.939.069.084.079.157.058.242-.064.267-.206.84-.234.957-.037.151-.121.183-.279.11-1.005-.468-1.634-1.94-1.634-3.118 0-2.681 1.947-5.142 5.614-5.142 2.946 0 5.24 2.1 5.24 4.904 0 2.926-1.843 5.279-4.404 5.279-.859 0-1.667-.447-1.943-1.04 0 0-.425 1.619-.528 2.014-.191.732-.708 1.65-1.054 2.209.794.245 1.632.374 2.503.374 6.626 0 12-5.373 12-12.017C24.017 5.372 18.643.001 12.001.001z"/>
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                         </svg>
                     </a>
                 </div>
-            </div>
-
-            <div class="footer-section">
-                <h3>Services</h3>
-                <ul class="footer-links">
-                    <li><a href="#process">Project Assessment</a></li>
-                    <li><a href="#process">Design Planning</a></li>
-                    <li><a href="#process">Procurement</a></li>
-                    <li><a href="#process">Installation</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h3>Company</h3>
-                <ul class="footer-links">
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="#resources">Resources</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
             </div>
 
             <div class="footer-section">
@@ -1459,15 +1519,25 @@
                         <svg class="contact-icon" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                         </svg>
-                        <a href="tel:435-669-1584">(435) 669-1584</a>
+                        <a href="tel:4358623631">(435) 862-3631</a>
                     </li>
                     <li>
                         <svg class="contact-icon" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                             <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                         </svg>
-                        <a href="mailto:hello@1584design.com">hello@1584design.com</a>
+                        <a href="mailto:team@1584design.com">team@1584design.com</a>
                     </li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#process">Process</a></li>
                 </ul>
             </div>
         </div>
