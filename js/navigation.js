@@ -44,35 +44,51 @@ function initParallax() {
     function updateParallax() {
         const scrolled = window.pageYOffset;
 
-        // Only apply parallax if not on mobile for better performance
-        if (window.innerWidth > 768) {
-            // Vertical-only parallax. Keep horizontal fixed at 20% to avoid horizontal shifts.
-            // Each 100px scrolled moves the background vertical position by 2%.
-            const parallaxMove = (scrolled / 100) * 2;
+        // Apply parallax on both desktop and mobile for better visual experience
+        // Vertical-only parallax. Keep horizontal fixed at 20% to avoid horizontal shifts.
+        // Each 100px scrolled moves the background vertical position by 4% on mobile for more noticeable effect
+        const parallaxMove = scrolled / 25; // Increased base movement
 
-            const verticalPosition = 29 + parallaxMove;
+        // Adjust parallax intensity for mobile (more intense for better visibility)
+        const isMobile = window.innerWidth <= 768;
+        const parallaxMultiplier = isMobile ? 4.0 : 2; // Increased mobile multiplier significantly
 
-            // Apply fixed horizontal (20%) and dynamic vertical position. This matches the CSS baseline (20% 29%)
-            hero.style.backgroundPosition = `20% ${verticalPosition}%`;
-        }
+        // Use different base positions for mobile vs desktop
+        const baseHorizontal = isMobile ? 15 : 20;
+        const baseVertical = isMobile ? 20 : 29; // Lower base position to allow more upward movement
+
+        const verticalPosition = baseVertical + (parallaxMove * parallaxMultiplier);
+
+        // Apply fixed horizontal and dynamic vertical position
+        hero.style.backgroundPosition = `${baseHorizontal}% ${verticalPosition}%`;
 
         ticking = false;
     }
 
+    // Throttle parallax updates for better mobile performance
+    let lastScrollTime = 0;
+    const throttleDelay = 16; // ~60fps
+
     function requestTick() {
         if (!ticking) {
-            requestAnimationFrame(updateParallax);
-            ticking = true;
+            const now = Date.now();
+            if (now - lastScrollTime >= throttleDelay) {
+                requestAnimationFrame(updateParallax);
+                lastScrollTime = now;
+                ticking = true;
+            }
         }
     }
 
-    // Add scroll event listener
-    window.addEventListener('scroll', requestTick);
+    // Add scroll event listener with passive option for better mobile performance
+    window.addEventListener('scroll', requestTick, { passive: true });
 
     // Reset to initial position on window resize
     window.addEventListener('resize', function() {
         if (window.innerWidth <= 768) {
-            hero.style.backgroundPosition = '20% 25%';
+            hero.style.backgroundPosition = '15% 20%'; // Updated to match new mobile base position
+        } else {
+            hero.style.backgroundPosition = '20% 29%';
         }
     });
 }
