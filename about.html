@@ -19,7 +19,7 @@
             font-family: 'Avenir', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             line-height: 1.6;
             color: #1A1A1A;
-            background-color: #FAFAF7;
+            background-color: #F5F2ED;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -115,67 +115,101 @@
             cursor: pointer;
         }
 
+        /* Magazine Layout */
+        .magazine-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 64px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .main-content {
+            max-width: 650px;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
         /* About Us Section */
         .story-section {
-            background: #FAFAF7;
+            background: #F5F2ED;
         }
 
         .story-header {
-            text-align: center;
-            margin-bottom: 64px;
+            text-align: left;
+            margin-bottom: 48px;
+            grid-column: 1 / -1;
         }
 
         .story-header h1 {
             font-family: 'Baskerville', Palatino, Garamond, serif;
-            font-size: clamp(32px, 6vw, 56px);
+            font-size: clamp(36px, 6vw, 64px);
             font-weight: 400;
             color: #9a7d55;
-            margin-bottom: 16px;
+            margin-bottom: 24px;
             letter-spacing: -0.02em;
-            line-height: 1.2;
+            line-height: 1.1;
+        }
+
+        .story-header .subtitle {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #2C2C2C;
+            font-weight: 400;
         }
 
         .story-content {
-            display: grid;
-            gap: 48px;
-            max-width: 800px;
-            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
         }
 
         .story-paragraph {
             font-size: 16px;
-            line-height: 1.6;
+            line-height: 1.7;
             color: #2C2C2C;
-            margin-bottom: 4px;
+            margin-bottom: 16px;
         }
 
         .story-paragraph.lead {
             font-family: 'Baskerville', Palatino, Garamond, serif;
-            font-size: 18px;
-            line-height: 1.7;
+            font-size: 20px;
+            line-height: 1.8;
             color: #1A1A1A;
+            font-weight: 400;
         }
 
         .story-paragraph.lead em {
-            font-size: 22px;
+            font-size: 24px;
             font-style: italic;
+            color: #9a7d55;
         }
 
-        /* Founder Signature Section */
-        .founder-signature-section {
-            background: #FAFAF7;
-            padding: 32px 0;
+        .story-paragraph.highlight {
+            font-family: 'Baskerville', Palatino, Garamond, serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #1A1A1A;
+            font-weight: 500;
         }
 
-        .founder-signature {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 32px;
-            align-items: center;
-            max-width: 800px;
-            margin: 0 auto;
-            padding-top: 32px;
-            border-top: 1px solid #E8E4DF;
+        /* Sidebar Components */
+        .sidebar-card {
+            background: #F5F2ED;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .sidebar-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         }
 
         .signature-image {
@@ -183,87 +217,36 @@
             height: 200px;
             object-fit: cover;
             object-position: center bottom;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        .founder-name {
-            font-family: 'Baskerville', Palatino, Garamond, serif;
-            font-size: 20px;
-            font-weight: 400;
-            color: #9a7d55;
-            margin-bottom: 4px;
-        }
-
-        .founder-title {
-            font-size: 14px;
-            color: #2C2C2C;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Heritage Section */
-        .heritage-section {
-            background: #F5F2ED;
-            padding: 80px 0;
-        }
-
-        .heritage-header {
-            text-align: center;
-            margin-bottom: 64px;
-        }
-
-        .heritage-header h2 {
-            font-family: 'Baskerville', Palatino, Garamond, serif;
-            font-size: clamp(28px, 5vw, 36px);
-            font-weight: 400;
-            color: #9a7d55;
-            margin-bottom: 16px;
-            line-height: 1.2;
-        }
-
-        .heritage-header p {
-            font-size: 18px;
-            line-height: 1.6;
-            color: #2C2C2C;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .heritage-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
-            margin-top: 48px;
-        }
-
+        /* Heritage Sidebar Items */
         .heritage-item {
-            background: #FAFAF7;
+            background: #F5F2ED;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .heritage-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         }
 
         .heritage-image {
             width: 100%;
-            height: 300px;
+            height: 200px;
             object-fit: cover;
             display: block;
         }
 
         .heritage-caption {
-            padding: 24px;
+            padding: 20px;
         }
 
         .heritage-caption h3 {
             font-family: 'Baskerville', Palatino, Garamond, serif;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 400;
             color: #9a7d55;
             margin-bottom: 8px;
@@ -271,13 +254,89 @@
         }
 
         .heritage-caption p {
-            font-size: 14px;
+            font-size: 13px;
             line-height: 1.5;
             color: #2C2C2C;
             font-style: italic;
         }
 
+        .sidebar-title {
+            font-family: 'Baskerville', Palatino, Garamond, serif;
+            font-size: 24px;
+            font-weight: 400;
+            color: #9a7d55;
+            margin-bottom: 16px;
+            text-align: center;
+            border-bottom: 2px solid #E8E4DF;
+            padding-bottom: 16px;
+        }
+
+        /* Founder Signature in Story Column */
+        .founder-signature-in-story {
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid #E8E4DF;
+        }
+
+        .founder-signature {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .signature-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            object-position: center bottom;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .founder-name {
+            font-family: 'Baskerville', Palatino, Garamond, serif;
+            font-size: 24px;
+            font-weight: 400;
+            color: #9a7d55;
+            margin-bottom: 8px;
+        }
+
+        .founder-title {
+            font-size: 14px;
+            color: #2C2C2C;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .founder-caption {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            margin-top: 8px;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
         /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .magazine-layout {
+                grid-template-columns: 1fr;
+                gap: 48px;
+                padding: 0 16px;
+            }
+
+            .main-content {
+                max-width: none;
+            }
+
+            .sidebar {
+                order: -1;
+                gap: 24px;
+            }
+        }
+
         @media (max-width: 768px) {
             .section {
                 padding: 64px 0;
@@ -311,13 +370,37 @@
                 display: block;
             }
 
-            .heritage-gallery {
-                grid-template-columns: 1fr;
-                gap: 24px;
+            .story-header {
+                text-align: center;
+                margin-bottom: 32px;
             }
 
-            .heritage-item {
-                margin: 0 -12px;
+            .story-header h1 {
+                font-size: clamp(28px, 6vw, 48px);
+            }
+
+            .story-paragraph.lead {
+                font-size: 18px;
+            }
+
+            .story-paragraph.lead em {
+                font-size: 20px;
+            }
+
+            .sidebar {
+                gap: 20px;
+            }
+
+            .heritage-image {
+                height: 150px;
+            }
+
+            .signature-image {
+                height: 150px;
+            }
+
+            .founder-signature-in-story {
+                margin-top: 32px;
             }
 
             .founder-signature {
@@ -328,12 +411,29 @@
         }
 
         @media (max-width: 480px) {
-            .container {
-                padding: 0 16px;
+            .magazine-layout {
+                padding: 0 12px;
+                gap: 32px;
             }
 
-            .heritage-item {
+            .story-header h1 {
+                font-size: clamp(24px, 6vw, 36px);
+            }
+
+            .story-paragraph {
+                font-size: 15px;
+            }
+
+            .story-paragraph.lead {
+                font-size: 16px;
+            }
+
+            .sidebar-card {
                 margin: 0;
+            }
+
+            .founder-signature-in-story {
+                margin-top: 24px;
             }
         }
 
@@ -363,81 +463,77 @@
 
     <!-- About Us Section -->
     <section id="about" class="story-section section">
-        <div class="container">
+        <div class="magazine-layout">
             <div class="story-header">
                 <h1>1584 Design: the Story Behind the Name</h1>
+                <p class="subtitle">A legacy of creativity spanning generations, from Marion Kennedy's pioneering work in the 1930s to our modern interior design studio today.</p>
             </div>
 
-            <div class="story-content">
-                <p class="story-paragraph lead"><em>My love for design began as a child when I would spend hours decorating and rearranging a wooden dollhouse that my uncle Glen bought for me. I was captivated by how different pieces could come together to create something beautiful, and that passion has stayed with me ever since.</em></p>
+            <div class="main-content">
+                <div class="story-content">
+                    <p class="story-paragraph lead"><em>My love for design began as a child when I would spend hours decorating and rearranging a wooden dollhouse that my uncle Glen bought for me. I was captivated by how different pieces could come together to create something beautiful, and that passion has stayed with me ever since.</em></p>
 
-                <p class="story-paragraph">With artists, woodworkers, and designers on my dad's side, it's no surprise that creativity runs in my veins. In high school, my uncle Glen—who studied architecture and renovated homes in Miami—encouraged me to turn my love for design into a career.</p>
+                    <p class="story-paragraph">With artists, woodworkers, and designers on my dad's side, it's no surprise that creativity runs in my veins. In high school, my uncle Glen—who studied architecture and renovated homes in Miami—encouraged me to turn my love for design into a career.</p>
 
-                <p class="story-paragraph">Watching him transform homes motivated me to take my first interior design course and eventually pursue it in college.</p>
+                    <p class="story-paragraph">Watching him transform homes motivated me to take my first interior design course and eventually pursue it in college.</p>
 
-                <p class="story-paragraph">After earning my design degree and working for several years in the industry, Glen gave me a special piece of our family's history: a furniture catalog from the 1930s that belonged to my great-grandmother, Marion Kennedy, who was one of the first female interior designers in the United States.</p>
+                    <p class="story-paragraph">After earning my design degree and working for several years in the industry, Glen gave me a special piece of our family's history: a furniture catalog from the 1930s that belonged to my great-grandmother, Marion Kennedy, who was one of the first female interior designers in the United States.</p>
 
-                <p class="story-paragraph"><strong>On the catalog cover was her business card, listing her phone number: 1584 W.</strong></p>
+                    <p class="story-paragraph highlight"><strong>On the catalog cover was her business card, listing her phone number: 1584 W.</strong></p>
 
-                <p class="story-paragraph">In 2021, after 27 years of experience transforming residential and commercial spaces, I started my own business with my daughter Dakota. We wanted a name that honored our family's creative legacy.</p>
+                    <p class="story-paragraph">In 2021, after 27 years of experience transforming residential and commercial spaces, I started my own business with my daughter Dakota. We wanted a name that honored our family's creative legacy.</p>
 
-                <p class="story-paragraph">While looking through the catalog together, she came up with the perfect idea: <strong>1584 Design</strong>.</p>
+                    <p class="story-paragraph">While looking through the catalog together, she came up with the perfect idea: <strong>1584 Design</strong>.</p>
 
-                <p class="story-paragraph">For me, the name is more than a nod to history—it's a reminder of where I come from and the creative roots that shaped me. Design has always been my passion, just like it was for my family before me, and I'm proud to carry that legacy forward.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Lisa Fisher Signature -->
-    <section class="founder-signature-section">
-        <div class="container">
-            <div class="founder-signature">
-                <div>
-                    <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/zTjqcEq3Ndj90wvhfc47/media/6794104dc21e372b39b376d3.jpeg" alt="Lisa Fisher and Dakota" class="signature-image">
+                    <p class="story-paragraph">For me, the name is more than a nod to history—it's a reminder of where I come from and the creative roots that shaped me. Design has always been my passion, just like it was for my family before me, and I'm proud to carry that legacy forward.</p>
                 </div>
-                <div style="text-align: left;">
-                    <div class="founder-name">Lisa Fisher</div>
-                    <div class="founder-title">Founder, 1584 Design</div>
+
+                <!-- Lisa Fisher Signature - In story column -->
+                <div class="founder-signature-in-story">
+                    <div class="founder-signature">
+                        <div>
+                            <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/zTjqcEq3Ndj90wvhfc47/media/6794104dc21e372b39b376d3.jpeg" alt="Lisa Fisher and Dakota" class="signature-image">
+                            <div class="founder-caption">Lisa and Dakota at the Las Vegas Furnishings Market</div>
+                        </div>
+                        <div>
+                            <div class="founder-name">Lisa Fisher</div>
+                            <div class="founder-title">Founder, 1584 Design</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Heritage Gallery Section -->
-    <section class="heritage-section">
-        <div class="container">
-            <div class="heritage-header">
-                <h2>Our Family Heritage</h2>
-                <p>Discover the historical pieces that inspired our company name and connect us to a legacy of design excellence spanning generations.</p>
-            </div>
+            <div class="sidebar">
+                <div class="sidebar-title">Our Family Heritage</div>
 
-            <div class="heritage-gallery">
-                <div class="heritage-item">
+                <!-- Heritage Items in Sidebar -->
+                <div class="heritage-item sidebar-card">
                     <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/zTjqcEq3Ndj90wvhfc47/media/679410f9252fad62188efea6.jpeg" alt="Marion Kennedy's Business Card" class="heritage-image">
                     <div class="heritage-caption">
                         <h3>Marion Kennedy's Business Card</h3>
-                        <p>Marion Kennedy's business card from the 1930s, featuring the phone number 1584 W that inspired our company name</p>
+                        <p>The historic business card from the 1930s featuring the phone number 1584 W that inspired our company name</p>
                     </div>
                 </div>
 
-                <div class="heritage-item">
+                <div class="heritage-item sidebar-card">
                     <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/zTjqcEq3Ndj90wvhfc47/media/67940facc04d892c762c4a0e.jpeg" alt="Kennedy Design Book Page 1" class="heritage-image">
                     <div class="heritage-caption">
                         <h3>Kennedy Design Book - Page 1</h3>
-                        <p>A page from Marion Kennedy's 1930s furniture catalog, showcasing her work as one of the first female interior designers in the United States</p>
+                        <p>A page from Marion Kennedy's 1930s furniture catalog showcasing her pioneering work as one of America's first female interior designers</p>
                     </div>
                 </div>
 
-                <div class="heritage-item">
+                <div class="heritage-item sidebar-card">
                     <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/zTjqcEq3Ndj90wvhfc47/media/67940facc04d89e97b2c4a0f.jpeg" alt="Kennedy Design Book Page 2" class="heritage-image">
                     <div class="heritage-caption">
                         <h3>Kennedy Design Book - Page 2</h3>
-                        <p>Another page from Marion Kennedy's historic furniture catalog, representing the foundation of our family's design legacy</p>
+                        <p>Another page from the historic catalog that represents the foundation of our family's design legacy</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <script>
         // Mobile menu toggle
