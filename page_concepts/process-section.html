@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process - How It Works - 1584 Design</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Avenir', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1A1A1A;
+            background-color: #FAFAF7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Typography System */
+        .font-primary {
+            font-family: 'Avenir', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .font-secondary {
+            font-family: 'Baskerville', Palatino, Garamond, serif;
+        }
+
+        /* Color Palette */
+        .color-warm-white { background-color: #FAFAF7; }
+        .color-soft-beige { background-color: #F5F2ED; }
+        .color-warm-gray { background-color: #E8E4DF; }
+        .color-taupe { background-color: #D4C5B3; }
+        .color-rich-brown { background-color: #9a7d55; }
+        .color-charcoal { background-color: #2C2C2C; }
+        .color-warm-black { background-color: #1A1A1A; }
+
+        /* Container and Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        /* Process Section with Plaster Background */
+        .process-section {
+            background: #9a7d55 url('../images/textures/Plaster_A_06___responsive_1920_1080.jpg') center bottom / cover no-repeat;
+            height: 100vh;
+            position: relative;
+        }
+
+        .process-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(154, 125, 85, 0.5);
+            z-index: 1;
+        }
+
+        .process-content {
+            position: relative;
+            z-index: 3;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+            height: 100vh;
+            padding: 60px 48px;
+            color: #FAFAF7;
+        }
+
+        .process-header {
+            text-align: left;
+        }
+
+        .process-header h1 {
+            font-family: 'Baskerville', Palatino, Garamond, serif;
+            font-size: clamp(36px, 6vw, 48px);
+            font-weight: 400;
+            line-height: 1.2;
+            color: #FAFAF7;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+        }
+
+        .process-header .subtitle {
+            font-size: 18px;
+            line-height: 1.5;
+            opacity: 0.95;
+            font-weight: 300;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Process Steps */
+        .process-steps {
+            display: grid;
+            gap: 48px;
+        }
+
+        .process-step {
+            text-align: left;
+            position: relative;
+            padding-left: 60px;
+            border-left: 2px solid rgba(250, 250, 247, 0.3);
+        }
+
+        .process-step:last-child {
+            border-left: none;
+        }
+
+        .step-number {
+            position: absolute;
+            left: -12px;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            background: #9a7d55;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Baskerville', Palatino, Garamond, serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #FAFAF7;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .step-title {
+            font-family: 'Baskerville', Palatino, Garamond, serif;
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 400;
+            color: #FAFAF7;
+            margin-bottom: 16px;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+        }
+
+        .step-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: rgba(250, 250, 247, 0.95);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .section {
+                padding: 64px 0;
+            }
+
+            .process-section {
+                height: 100vh;
+            }
+
+            .process-content {
+                grid-template-columns: 1fr;
+                gap: 48px;
+                padding: 60px 24px;
+                height: 100vh;
+            }
+
+            .process-header {
+                text-align: center;
+                margin-bottom: 0;
+            }
+
+            .process-header h1 {
+                font-size: clamp(20px, 6vw, 28px);
+            }
+
+            .process-header .subtitle {
+                font-size: 16px;
+                margin: 0 auto;
+            }
+
+            .process-steps {
+                gap: 32px;
+            }
+
+            .process-step {
+                padding-left: 50px;
+                border-left: none;
+                border-top: 1px solid rgba(250, 250, 247, 0.2);
+                padding-top: 24px;
+                padding-left: 0;
+            }
+
+            .process-step:first-child {
+                border-top: none;
+                padding-top: 0;
+            }
+
+            .step-number {
+                position: relative;
+                left: 0;
+                top: 0;
+                margin-bottom: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .process-content {
+                padding: 40px 16px;
+                gap: 32px;
+                height: 100vh;
+            }
+
+            .process-steps {
+                gap: 24px;
+            }
+
+            .process-step {
+                padding-top: 20px;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .process-header {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .process-steps {
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        .process-step {
+            animation: fadeInUp 0.6s ease forwards;
+            animation-delay: calc(var(--step-index) * 0.1s + 0.3s);
+        }
+    </style>
+</head>
+<body>
+    <section class="process-section section">
+        <div class="container">
+            <div class="process-content">
+                <div class="process-header">
+                    <h1>How It Works</h1>
+                    <p class="subtitle">Our comprehensive design process ensures every project receives the attention and expertise it deserves, from initial consultation to final installation.</p>
+                </div>
+
+                <div class="process-steps">
+                    <div class="process-step" style="--step-index: 1;">
+                        <div class="step-number">1</div>
+                        <h2 class="step-title">Design Consultation</h2>
+                        <p class="step-description">Every project begins with understanding your goals, your property, and your budget.</p>
+                    </div>
+
+                    <div class="process-step" style="--step-index: 2;">
+                        <div class="step-number">2</div>
+                        <h2 class="step-title">Conceptualization</h2>
+                        <p class="step-description">If we decide to take on your project, we'll conceptualize the overall creative direction to lay the foundation for a successful installation.</p>
+                    </div>
+
+                    <div class="process-step" style="--step-index: 3;">
+                        <div class="step-number">3</div>
+                        <h2 class="step-title">Procurement</h2>
+                        <p class="step-description">Next, we'll procure the furniture, textiles, accessories that will go into your property. Depending on project parameters, conceptualization can happen iteratively alongside procurement.</p>
+                    </div>
+
+                    <div class="process-step" style="--step-index: 4;">
+                        <div class="step-number">4</div>
+                        <h2 class="step-title">Installation</h2>
+                        <p class="step-description">Installation is where everything comes together. We use principles like balance, proportion, and layering to make sure your property shines.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

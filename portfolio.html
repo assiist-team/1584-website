@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - 1584 Design - Interior Design for Vacation Rentals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Avenir:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Avenir', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1A1A1A;
+            background-color: #F5F2ED;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Typography System */
+        .font-primary {
+            font-family: 'Avenir', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .font-secondary {
+            font-family: 'Baskerville', Palatino, Garamond, serif;
+        }
+
+        /* Color Palette */
+        .color-warm-white { background-color: #F5F2ED; }
+        .color-soft-beige { background-color: #F5F2ED; }
+        .color-warm-gray { background-color: #E8E4DF; }
+        .color-taupe { background-color: #D4C5B3; }
+        .color-rich-brown { background-color: #9a7d55; }
+        .color-charcoal { background-color: #2C2C2C; }
+        .color-warm-black { background-color: #1A1A1A; }
+
+        /* Container */
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 26, 1);
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+            display: block;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 48px;
+        }
+
+        .nav-menu a {
+            color: #FAFAF7;
+            text-decoration: none;
+            font-family: 'Avenir', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #D4C5B3;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #FAFAF7;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Portfolio Gallery */
+        .portfolio-section {
+            background: #F5F2ED;
+            padding-top: 200px; /* Account for main nav (80px) + portfolio nav (~120px with generous buffer) */
+        }
+
+        .grid-gallery {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            margin: 48px 0;
+        }
+
+        .category-card {
+            background: #F5F2ED;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+        }
+
+        .category-preview {
+            height: 160px;
+            background: linear-gradient(45deg, #E8E4DF 25%, transparent 25%),
+                        linear-gradient(-45deg, #E8E4DF 25%, transparent 25%),
+                        linear-gradient(45deg, transparent 75%, #E8E4DF 75%),
+                        linear-gradient(-45deg, transparent 75%, #E8E4DF 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            position: relative;
+        }
+
+        .category-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .category-card:hover .category-preview img {
+            opacity: 0.8;
+        }
+
+        .category-title-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(26, 26, 26, 0.9));
+            color: #FAFAF7;
+            padding: 32px 24px 24px 24px;
+            font-family: 'Avenir', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 24px;
+            font-weight: 300;
+            line-height: 1.3;
+            z-index: 2;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            display: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-container {
+            position: relative;
+            width: 95vw;
+            height: 95vh;
+            max-width: 95vw;
+            max-height: 95vh;
+            display: flex;
+            flex-direction: column;
+            background: #F5F2ED;
+            border-radius: 0px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .modal-container.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .modal-close-overlay {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(26, 26, 26, 0.8);
+            border: none;
+            color: #FAFAF7;
+            font-size: 32px;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+            line-height: 1;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .modal-close-overlay:hover {
+            background: rgba(26, 26, 26, 0.9);
+            transform: scale(1.1);
+        }
+
+        .modal-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .modal-image-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: #1A1A1A;
+            min-height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 0px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            display: block;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-image.loaded {
+            opacity: 1;
+        }
+
+        .modal-nav-chevron {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 0px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #1A1A1A;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+        }
+
+        .modal-nav-chevron:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .modal-nav-chevron.left {
+            left: 20px;
+        }
+
+        .modal-nav-chevron.right {
+            right: 20px;
+        }
+
+        .modal-nav-chevron:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .modal-thumbnails {
+            padding: 16px 32px;
+            background: #F5F2ED;
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            max-height: 100px;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 0px;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            flex-shrink: 0;
+            border: 2px solid transparent;
+        }
+
+        .thumbnail:hover {
+            transform: scale(1.05);
+            border-color: #9a7d55;
+        }
+
+        .thumbnail.active {
+            border: 3px solid #9a7d55;
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        /* Portfolio Navigation */
+        .portfolio-nav {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: #F5F2ED;
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            border-bottom: 1px solid #D4C5B3;
+            box-shadow: 0 2px 8px rgba(26, 26, 26, 0.08);
+        }
+
+        .portfolio-nav-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .portfolio-nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 0;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .portfolio-nav-menu li {
+            flex: 1;
+        }
+
+        .portfolio-nav-link {
+            display: block;
+            padding: 16px 20px;
+            color: #2C2C2C;
+            text-decoration: none;
+            font-family: 'Avenir', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            background: #F5F2ED;
+        }
+
+        .portfolio-nav-link:hover,
+        .portfolio-nav-link.active {
+            color: #9a7d55;
+            border-bottom-color: #9a7d55;
+        }
+
+        /* Portfolio Sections */
+        .portfolio-category-section {
+            margin-bottom: 80px;
+            scroll-margin-top: 140px;
+        }
+
+        .category-header {
+            margin-bottom: 48px;
+        }
+
+        .category-header h3 {
+            font-family: 'Baskerville', Palatino, Garamond, serif;
+            font-size: clamp(24px, 4vw, 36px);
+            font-weight: 400;
+            color: #9a7d55;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 6px;
+        }
+
+        .portfolio-item {
+            background: #F5F2ED;
+            border-radius: 0px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+        }
+
+        .portfolio-item-image {
+            height: 200px;
+            background: linear-gradient(45deg, #E8E4DF 25%, transparent 25%),
+                        linear-gradient(-45deg, #E8E4DF 25%, transparent 25%),
+                        linear-gradient(45deg, transparent 75%, #E8E4DF 75%),
+                        linear-gradient(-45deg, transparent 75%, #E8E4DF 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            position: relative;
+        }
+
+        .portfolio-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-item-image img {
+            opacity: 0.8;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .section {
+                padding: 64px 0;
+            }
+
+            .navigation {
+                padding: 0 16px;
+            }
+
+            .nav-container {
+                height: 64px;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(26, 26, 26, 0.98);
+                flex-direction: column;
+                padding: 24px;
+                gap: 6px;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .grid-gallery {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
+            }
+
+            .modal-container {
+                width: 100vw;
+                height: 100vh;
+                max-width: 100vw;
+                max-height: 100vh;
+            }
+
+            .modal-close-overlay {
+                top: 15px;
+                right: 15px;
+                font-size: 28px;
+                padding: 10px;
+            }
+
+            .modal-image-container {
+                padding: 10px;
+            }
+
+            .modal-nav-chevron {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .modal-nav-chevron.left {
+                left: 15px;
+            }
+
+            .modal-nav-chevron.right {
+                right: 15px;
+            }
+
+            .modal-thumbnails {
+                padding: 12px 16px;
+            }
+
+            .portfolio-nav {
+                top: 64px;
+            }
+
+            .portfolio-nav-menu {
+                flex-direction: column;
+                gap: 1px;
+            }
+
+            .portfolio-nav-menu li {
+                flex: none;
+            }
+
+            .portfolio-nav-link {
+                padding: 12px 16px;
+                font-size: 12px;
+                background: #F5F2ED;
+            }
+
+            .portfolio-category-section {
+                margin-bottom: 64px;
+                scroll-margin-top: 120px;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 6px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .grid-gallery {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+        }
+
+        /* Image and Font Rendering Optimization */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="nav-container">
+            <a href="index.html" class="logo"><img src="images/1584_logo_white_thick.png" alt="1584 Interior Design" /></a>
+            <ul class="nav-menu">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="portfolio.html">PORTFOLIO</a></li>
+                <li><a href="index.html#resources">RESOURCES</a></li>
+                <li><a href="index.html#process">PROCESS</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="index.html#contact">CONTACT</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </nav>
+
+    <!-- Portfolio Navigation -->
+    <nav class="portfolio-nav">
+        <div class="portfolio-nav-container">
+            <ul class="portfolio-nav-menu">
+                <li><a href="#bedrooms" class="portfolio-nav-link active">Bedrooms</a></li>
+                <li><a href="#living-spaces" class="portfolio-nav-link">Living Spaces</a></li>
+                <li><a href="#outdoor-spaces" class="portfolio-nav-link">Outdoor Spaces</a></li>
+                <li><a href="#working-spaces" class="portfolio-nav-link">Working Spaces</a></li>
+                <li><a href="#extra-spaces" class="portfolio-nav-link">Extra Spaces</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Portfolio Gallery -->
+    <section id="portfolio" class="portfolio-section">
+        <div class="container">
+            <!-- Bedrooms Section -->
+            <section id="bedrooms" class="portfolio-category-section">
+                <div class="category-header">
+                    <h3>Bedrooms</h3>
+                </div>
+                <div class="portfolio-grid">
+                    <!-- Bedroom images will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Living Spaces Section -->
+            <section id="living-spaces" class="portfolio-category-section">
+                <div class="category-header">
+                    <h3>Living Spaces</h3>
+                </div>
+                <div class="portfolio-grid">
+                    <!-- Living space images will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Outdoor Spaces Section -->
+            <section id="outdoor-spaces" class="portfolio-category-section">
+                <div class="category-header">
+                    <h3>Outdoor Spaces</h3>
+                </div>
+                <div class="portfolio-grid">
+                    <!-- Outdoor space images will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Working Spaces Section -->
+            <section id="working-spaces" class="portfolio-category-section">
+                <div class="category-header">
+                    <h3>Working Spaces</h3>
+                </div>
+                <div class="portfolio-grid">
+                    <!-- Working space images will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Extra Spaces Section -->
+            <section id="extra-spaces" class="portfolio-category-section">
+                <div class="category-header">
+                    <h3>Extra Spaces</h3>
+                </div>
+                <div class="portfolio-grid">
+                    <!-- Extra space images will be populated by JavaScript -->
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="galleryModal">
+        <div class="modal-container">
+            <button class="modal-close-overlay" onclick="closeModal()">&times;</button>
+            <div class="modal-content">
+                <div class="modal-image-container">
+                    <img class="modal-image" id="modalImage" src="" alt="">
+                    <button class="modal-nav-chevron left" id="prevBtn" onclick="previousImage()">&#8249;</button>
+                    <button class="modal-nav-chevron right" id="nextBtn" onclick="nextImage()">&#8250;</button>
+                </div>
+                <div class="modal-thumbnails" id="thumbnailContainer">
+                    <!-- Thumbnails will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Portfolio data organized by categories
+        const portfolioData = {
+            'bedrooms': {
+                title: 'Bedrooms',
+                images: [
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688134fb63bc08086c4f37.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/6768813446935194065480f7.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881342fc195532a4ae6c9.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881347e621110c2b123c8.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/6768973efb63bc73986c7afb.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/6768973e469351421a54af42.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/6768973e0bcca0a88e7fa3ac.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676899ee0bcca0203a7fa546.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676899ee7e6211f718b15b11.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676899ee2fc19584fd4b2205.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676899ef469351e50754b0bf.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676899ef46935165c454b0c4.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676899eefb63bc485e6c7c4b.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676899ee2fc1950a274b2206.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676899ef4693513fe554b0c3.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676899ee2fc19574bc4b2208.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676899ef46935174dc54b0c1.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676899ee0bcca05e327fa549.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676899ee0bcca051697fa547.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881204693517b6c5480be.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881207e621115cbb11c3e.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881202fc19577b94ae6a6.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881202fc19538b84ae6a4.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881200bcca03e647f8284.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688120fb63bc95b56c4b41.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881202fc19552b24ae6a1.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881200bcca032dc7f827a.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881202fc195b3a64ae6a3.jpeg'
+                ]
+            },
+            'living-spaces': {
+                title: 'Living Spaces',
+                images: [
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881342fc1951e7e4ae6c8.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881340bcca010997f846f.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881340bcca074d27f846d.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688134fb63bc3b896c4f38.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881344693518e8e5480fe.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688134fb63bc89a26c4f40.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881347e62114f49b123cb.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/6768813446935138db5480fb.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688134fb63bc76c86c4f42.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/6768813446935155f75480f5.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688134469351f1ae5480f8.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881340bcca0486d7f846c.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881347e6211e70cb123c9.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881347e62114fc0b123ca.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881347e6211a0d6b123c7.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881340bcca0781f7f8467.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881344693514e6f5480f6.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688134fb63bc51836c4f39.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881352fc195b5764ae745.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881352fc19559b14ae742.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688134469351fcac5480fc.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676899eefb63bc85446c7c47.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676899ef46935188e454b0be.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676899ee2fc195c6ea4b2203.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676899ee7e62114fd2b15b0e.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676899eefb63bcf5286c7c48.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/6768812046935152095480bb.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688120fb63bc785c6c4b43.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881207e62117348b11c3b.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881200bcca0e4767f827f.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/6768812046935123085480c0.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881202fc195dbb34ae6ac.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881340bcca02ac47f8470.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688120fb63bc364a6c4b47.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/6768812046935145ad5480bf.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881200bcca0361c7f827c.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881200bcca01cd87f827d.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688120fb63bc8e8c6c4b4c.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881202fc1957b554ae6a7.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688120fb63bc408a6c4b4b.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881202fc195da3e4ae6a9.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881202fc1953dd64ae6ab.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/6760e66f2787df5c0c6a1dfe.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881202fc195dfcf4ae6a8.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881202fc195e4514ae69e.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881200bcca0060e7f8274.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688120fb63bc76f26c4b40.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688120469351415c5480b7.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881200bcca02cf47f8275.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881200bcca0b2067f8277.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688120fb63bc83026c4b42.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881202fc19554a04ae69d.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881200bcca0c62e7f8276.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688120fb63bc1d986c4b3f.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881200bcca017eb7f827e.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676880ec469351992b547ece.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676880ec7e62110d43b11a20.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676880ec0bcca053377f8226.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676880ecfb63bca08d6c4652.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676880ec4693513ebd547ed0.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676880ec0bcca09e9e7f8227.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676880ec2fc195589f4adec0.jpeg'
+                ]
+            },
+            'outdoor-spaces': {
+                title: 'Outdoor Spaces',
+                images: [
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688120fb63bcd9fc6c4b45.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688127469351457e5480c5.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688120fb63bc39746c4b44.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688120fb63bc82cf6c4b4a.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881202fc19501f14ae6aa.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688120fb63bc000a6c4b49.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881200bcca07f147f8281.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881202fc195e1aa4ae6a5.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881347e6211e3e3b123d2.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688134fb63bc11776c4f3a.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881344693515dcb5480fd.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688134fb63bc06776c4f3e.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/67688134fb63bc76036c4f3f.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881347e62112e4eb123cf.jpeg'
+                ]
+            },
+            'working-spaces': {
+                title: 'Working Spaces',
+                images: [
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881347e62117938b123cc.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/6768812046935193de5480ba.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881207e6211b5b9b11c38.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881202fc195c2ad4ae69f.jpeg'
+                ]
+            },
+            'extra-spaces': {
+                title: 'Extra Spaces',
+                images: [
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881207e62115cb0b11c3d.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881207e6211f24db11c3a.jpeg',
+                    'https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/676881200bcca0b2067f8277.jpeg'
+                ]
+            }
+        };
+
+        // Global variables for modal functionality
+        let currentCategory = '';
+        let currentImageIndex = 0;
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navMenu = document.querySelector('.nav-menu');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+
+            if (!navMenu.contains(event.target) && !toggle.contains(event.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        function openModal(category) {
+            currentCategory = category;
+            currentImageIndex = 0;
+
+            const modal = document.getElementById('galleryModal');
+            const modalImage = document.getElementById('modalImage');
+            const thumbnailContainer = document.getElementById('thumbnailContainer');
+
+            // Check if category exists
+            if (!portfolioData[category]) {
+                console.error('Category not found:', category);
+                return;
+            }
+
+            // Show first image
+            modalImage.classList.remove('loaded');
+            modalImage.src = portfolioData[category].images[0];
+            modalImage.alt = `${portfolioData[category].title} Image 1`;
+
+            // Handle image loading
+            modalImage.onload = function() {
+                this.classList.add('loaded');
+            };
+
+            modalImage.onerror = function() {
+                console.error('Failed to load image:', this.src);
+                this.classList.add('loaded'); // Still show the container even if image fails
+            };
+
+            // Generate thumbnails
+            thumbnailContainer.innerHTML = '';
+            portfolioData[category].images.forEach((imageSrc, index) => {
+                const thumbnail = document.createElement('img');
+                thumbnail.className = `thumbnail ${index === 0 ? 'active' : ''}`;
+                thumbnail.src = imageSrc;
+                thumbnail.alt = `${portfolioData[category].title} Thumbnail ${index + 1}`;
+                thumbnail.onclick = () => showImage(index);
+                thumbnailContainer.appendChild(thumbnail);
+            });
+
+            // Update navigation buttons
+            updateNavigationButtons();
+
+            // Show modal with smooth animation
+            modal.classList.add('active');
+            // Add active class to container for smooth animation
+            const modalContainer = modal.querySelector('.modal-container');
+            if (modalContainer) {
+                modalContainer.classList.add('active');
+            }
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('galleryModal');
+            const modalContainer = modal.querySelector('.modal-container');
+            modal.classList.remove('active');
+            if (modalContainer) {
+                modalContainer.classList.remove('active');
+            }
+            document.body.style.overflow = '';
+        }
+
+        function showImage(index) {
+            // Validate inputs
+            if (!currentCategory || !portfolioData[currentCategory]) {
+                console.error('No category selected');
+                return;
+            }
+
+            if (index < 0 || index >= portfolioData[currentCategory].images.length) {
+                console.error('Invalid image index:', index);
+                return;
+            }
+
+            currentImageIndex = index;
+
+            const modalImage = document.getElementById('modalImage');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+
+            // Update main image
+            modalImage.classList.remove('loaded');
+            modalImage.src = portfolioData[currentCategory].images[index];
+            modalImage.alt = `${portfolioData[currentCategory].title} Image ${index + 1}`;
+
+            // Handle image loading
+            modalImage.onload = function() {
+                this.classList.add('loaded');
+            };
+
+            modalImage.onerror = function() {
+                console.error('Failed to load image:', this.src);
+                this.classList.add('loaded'); // Still show the container even if image fails
+            };
+
+            // Update active thumbnail
+            thumbnails.forEach((thumb, thumbIndex) => {
+                if (thumbIndex === index) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+
+            // Update navigation buttons
+            updateNavigationButtons();
+        }
+
+        function nextImage() {
+            if (currentCategory && portfolioData[currentCategory] && currentImageIndex < portfolioData[currentCategory].images.length - 1) {
+                showImage(currentImageIndex + 1);
+            }
+        }
+
+        function previousImage() {
+            if (currentCategory && currentImageIndex > 0) {
+                showImage(currentImageIndex - 1);
+            }
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            if (prevBtn && nextBtn) {
+                prevBtn.disabled = !currentCategory || currentImageIndex === 0;
+                nextBtn.disabled = !currentCategory || currentImageIndex === portfolioData[currentCategory].images.length - 1;
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('galleryModal');
+            if (modal && modal.classList.contains('active')) {
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        event.preventDefault();
+                        previousImage();
+                        break;
+                    case 'ArrowRight':
+                        event.preventDefault();
+                        nextImage();
+                        break;
+                    case 'Escape':
+                        event.preventDefault();
+                        closeModal();
+                        break;
+                }
+            }
+        });
+
+        // Initialize portfolio grids on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePortfolio();
+            setupPortfolioNavigation();
+
+            // Close modal when clicking outside
+            const modal = document.getElementById('galleryModal');
+            if (modal) {
+                modal.addEventListener('click', function(event) {
+                    if (event.target === this) {
+                        closeModal();
+                    }
+                });
+            }
+        });
+
+        function initializePortfolio() {
+            // Populate each portfolio grid with images
+            Object.keys(portfolioData).forEach(category => {
+                const gridContainer = document.querySelector(`#${category} .portfolio-grid`);
+                if (gridContainer) {
+                    portfolioData[category].images.forEach((imageSrc, index) => {
+                        const portfolioItem = createPortfolioItem(category, imageSrc, index);
+                        gridContainer.appendChild(portfolioItem);
+                    });
+                }
+            });
+        }
+
+        function createPortfolioItem(category, imageSrc, index) {
+            const item = document.createElement('div');
+            item.className = 'portfolio-item';
+            item.onclick = () => openModalFromItem(category, index);
+
+            const imageContainer = document.createElement('div');
+            imageContainer.className = 'portfolio-item-image';
+
+            const img = document.createElement('img');
+            img.src = imageSrc;
+            img.alt = `${portfolioData[category].title} Image ${index + 1}`;
+            img.onload = function() {
+                this.style.opacity = '1';
+            };
+
+            imageContainer.appendChild(img);
+            item.appendChild(imageContainer);
+
+            return item;
+        }
+
+        function openModalFromItem(category, imageIndex) {
+            currentCategory = category;
+            currentImageIndex = imageIndex;
+
+            const modal = document.getElementById('galleryModal');
+            const modalImage = document.getElementById('modalImage');
+            const thumbnailContainer = document.getElementById('thumbnailContainer');
+
+            // Check if category exists
+            if (!portfolioData[category]) {
+                console.error('Category not found:', category);
+                return;
+            }
+
+            // Show selected image
+            modalImage.classList.remove('loaded');
+            modalImage.src = portfolioData[category].images[imageIndex];
+            modalImage.alt = `${portfolioData[category].title} Image ${imageIndex + 1}`;
+
+            // Handle image loading
+            modalImage.onload = function() {
+                this.classList.add('loaded');
+            };
+
+            modalImage.onerror = function() {
+                console.error('Failed to load image:', this.src);
+                this.classList.add('loaded'); // Still show the container even if image fails
+            };
+
+            // Generate thumbnails
+            thumbnailContainer.innerHTML = '';
+            portfolioData[category].images.forEach((imageSrc, index) => {
+                const thumbnail = document.createElement('img');
+                thumbnail.className = `thumbnail ${index === imageIndex ? 'active' : ''}`;
+                thumbnail.src = imageSrc;
+                thumbnail.alt = `${portfolioData[category].title} Thumbnail ${index + 1}`;
+                thumbnail.onclick = () => showImage(index);
+                thumbnailContainer.appendChild(thumbnail);
+            });
+
+            // Update navigation buttons
+            updateNavigationButtons();
+
+            // Show modal with smooth animation
+            modal.classList.add('active');
+            // Add active class to container for smooth animation
+            const modalContainer = modal.querySelector('.modal-container');
+            if (modalContainer) {
+                modalContainer.classList.add('active');
+            }
+            document.body.style.overflow = 'hidden';
+        }
+
+        function setupPortfolioNavigation() {
+            // Handle portfolio navigation clicks
+            const navLinks = document.querySelectorAll('.portfolio-nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+
+                    // Update active state
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Scroll to section
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        const navHeight = document.querySelector('.portfolio-nav').offsetHeight;
+                        const mainNavHeight = document.querySelector('.navigation').offsetHeight;
+                        const offset = navHeight + mainNavHeight + 20;
+
+                        const elementPosition = targetSection.offsetTop - offset;
+                        window.scrollTo({
+                            top: elementPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Update active nav link on scroll
+            window.addEventListener('scroll', updateActiveNavLink);
+        }
+
+        function updateActiveNavLink() {
+            const sections = document.querySelectorAll('.portfolio-category-section');
+            const navLinks = document.querySelectorAll('.portfolio-nav-link');
+            const navHeight = document.querySelector('.portfolio-nav').offsetHeight;
+            const mainNavHeight = document.querySelector('.navigation').offsetHeight;
+            const offset = navHeight + mainNavHeight + 50;
+
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - offset;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('galleryModal');
+            if (modal && modal.classList.contains('active')) {
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        event.preventDefault();
+                        previousImage();
+                        break;
+                    case 'ArrowRight':
+                        event.preventDefault();
+                        nextImage();
+                        break;
+                    case 'Escape':
+                        event.preventDefault();
+                        closeModal();
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

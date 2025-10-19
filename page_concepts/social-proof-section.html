@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Proof Section - 1584 Design</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Avenir', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1A1A1A;
+            background-color: #FAFAF7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Typography System */
+        .font-primary {
+            font-family: 'Avenir', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .font-secondary {
+            font-family: 'Baskerville', Palatino, Garamond, serif;
+        }
+
+        /* Container and Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        /* Hero-style Social Proof Section */
+        .social-proof-section {
+            background-image: url('https://storage.googleapis.com/msgsndr/zTjqcEq3Ndj90wvhfc47/media/6768973e469351f53d54af3e.jpeg');
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+            text-align: center;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-proof-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        .social-proof-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 40px;
+        }
+
+        .testimonial-quote {
+            margin-bottom: 48px;
+        }
+
+        .testimonial-quote p {
+            font-family: 'Baskerville', Palatino, Garamond, serif;
+            font-size: clamp(24px, 4vw, 36px);
+            font-style: italic;
+            line-height: 1.4;
+            color: #FFFFFF;
+            margin: 0;
+            text-align: center;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8), 1px 1px 4px rgba(0, 0, 0, 0.9);
+        }
+
+        /* CTA Section */
+        .social-proof-cta {
+            margin-top: 0;
+        }
+
+        .google-reviews-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: transparent;
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 16px 34px;
+            border-radius: 25pt;
+            font-family: 'Avenir', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: none;
+            border: 2px solid #FFFFFF;
+        }
+
+        .google-reviews-btn:hover {
+            background: #FFFFFF;
+            color: #1A1A1A;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .google-reviews-btn::after {
+            content: "→";
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .google-reviews-btn:hover::after {
+            transform: translateX(4px);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .section {
+                padding: 64px 0;
+            }
+
+            .social-proof-section {
+                min-height: 60vh;
+            }
+
+            .social-proof-content {
+                padding: 0 24px;
+            }
+
+            .testimonial-quote {
+                margin-bottom: 36px;
+            }
+
+            .testimonial-quote p {
+                font-size: clamp(20px, 5vw, 28px);
+            }
+
+            .google-reviews-btn {
+                padding: 16px 32px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .social-proof-section {
+                min-height: 50vh;
+            }
+
+            .social-proof-content {
+                padding: 0 16px;
+            }
+
+            .testimonial-quote p {
+                font-size: clamp(18px, 6vw, 24px);
+                line-height: 1.3;
+            }
+
+            .google-reviews-btn {
+                padding: 14px 28px;
+                font-size: 13px;
+                letter-spacing: 1px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="social-proof-section section">
+        <div class="container">
+            <div class="social-proof-content">
+                <div class="testimonial-quote">
+                    <p>"Our villa has gone from one of the least rented villain the resort to one of the most rented and the nightly rental fee has increased due to Lisa's beautiful design transformation."</p>
+                </div>
+
+                <div class="social-proof-cta">
+                    <a href="https://www.google.com/search?sca_esv=0e47a412606519cc&rlz=1C5CHFA_enUS957US957&si=APYL9bs7Hg2KMLB-4tSoTdxuOx8BdRvHbByC_AuVpNyh0x2KzYvdsqWCV12sAOEP9Ju29Lu7e4mdzZIWLG_01mE-oRa9SL8vFpbTmECALAbcKFE-6Yq9hq_FQkpbow7cgJoP_syuyYQlPR4P5Dj9D7vM62D4heNLc-Imprs5DCzYJ170QWPM9JQ%3D&q=1584+Design+-+St.+George+Interior+Design+Reviews&sa=X&ved=2ahUKEwj846r3yq2MAxUeGEQIHWd0EDQQ0bkNegQIMBAD&biw=1440&bih=717&dpr=2" class="google-reviews-btn" target="_blank" rel="noopener noreferrer">
+                        See All Google Reviews
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
