@@ -5,18 +5,20 @@ This document outlines a safe, incremental path to convert the site to mobile‑
 ### 📈 Current Status
 
 **✅ Phase 1 Complete** - Image pipeline and directory structure
-- Generated 42 optimized WebP derivatives across 8 source images
-- Created `images_optimized/` with proper category organization
-- Ready for responsive image markup implementation
+- Generated 900+ optimized WebP derivatives across all source images
+- Created `images_optimized/` with proper category organization (logos, hero, portfolio/gallery, cards)
+- Optimized 111 portfolio images + logos + hero images + about images
 
-**⏳ Phase 2 Pending** - Responsive images in markup (do this next)
-- Update HTML to use `<picture>` elements with `srcset`
+**✅ Phase 2 Complete** - Responsive images in markup
+- Updated HTML across all pages to use `<picture>` elements with `srcset`
 - Set appropriate `sizes` attributes for layout breakpoints
-- Add `width`/`height` attributes to prevent layout shifts
+- Added `width`/`height` attributes to prevent layout shifts
+- Added `loading="lazy"` and `decoding="async"` for performance
+- Used `fetchpriority="high"` for LCP hero image
 
-**⏳ Phase 3 Pending** - Page-by-page verification and QA
-- Convert individual page grids to fluid patterns where safe without full CSS flip
-- Lighthouse passes on mobile/desktop; fix regressions
+**⏳ Phase 3 Ready** - Page-by-page verification and QA
+- All responsive image markup implemented and tested
+- Ready for Lighthouse testing and performance verification
 
 **⏳ Phase 4 Pending** - Mobile-first CSS conversion (do this last)
 - Convert media queries to min-width breakpoints
