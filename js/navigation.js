@@ -34,38 +34,88 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Parallax scrolling for hero background
+// Parallax scrolling for hero background - Enhanced for all screen sizes
 function initParallax() {
     const hero = document.querySelector('.hero');
     if (!hero) return; // Exit if hero doesn't exist on this page
 
     let ticking = false;
 
+    function getParallaxSettings() {
+        const width = window.innerWidth;
+
+        // Progressive parallax settings based on screen size
+        if (width <= 320) {
+            // Very small mobile - maximum parallax for visibility
+            return {
+                multiplier: 6.0,
+                baseHorizontal: 15,
+                baseVertical: 25,
+                scrollDivider: 20 // More sensitive movement
+            };
+        } else if (width <= 480) {
+            // Small mobile - strong parallax
+            return {
+                multiplier: 5.0,
+                baseHorizontal: 15,
+                baseVertical: 22,
+                scrollDivider: 22
+            };
+        } else if (width <= 768) {
+            // Mobile/tablet - moderate parallax
+            return {
+                multiplier: 4.0,
+                baseHorizontal: 15,
+                baseVertical: 20,
+                scrollDivider: 25
+            };
+        } else if (width <= 1024) {
+            // Tablet - reduced parallax
+            return {
+                multiplier: 2.5,
+                baseHorizontal: 18,
+                baseVertical: 25,
+                scrollDivider: 30
+            };
+        } else if (width <= 1440) {
+            // Desktop - standard parallax
+            return {
+                multiplier: 2.0,
+                baseHorizontal: 20,
+                baseVertical: 29,
+                scrollDivider: 35
+            };
+        } else {
+            // Large desktop - subtle parallax
+            return {
+                multiplier: 1.5,
+                baseHorizontal: 20,
+                baseVertical: 29,
+                scrollDivider: 40
+            };
+        }
+    }
+
     function updateParallax() {
         const scrolled = window.pageYOffset;
+        const settings = getParallaxSettings();
 
-        // Apply parallax on both desktop and mobile for better visual experience
-        // Vertical-only parallax. Keep horizontal fixed at 20% to avoid horizontal shifts.
-        // Each 100px scrolled moves the background vertical position by 4% on mobile for more noticeable effect
-        const parallaxMove = scrolled / 25; // Increased base movement
+        // Calculate parallax movement with progressive sensitivity
+        const parallaxMove = scrolled / settings.scrollDivider;
 
-        // Adjust parallax intensity for mobile (more intense for better visibility)
-        const isMobile = window.innerWidth <= 768;
-        const parallaxMultiplier = isMobile ? 4.0 : 2; // Increased mobile multiplier significantly
+        // Apply enhanced parallax calculation
+        const verticalPosition = settings.baseVertical + (parallaxMove * settings.multiplier);
 
-        // Use different base positions for mobile vs desktop
-        const baseHorizontal = isMobile ? 15 : 20;
-        const baseVertical = isMobile ? 20 : 29; // Lower base position to allow more upward movement
-
-        const verticalPosition = baseVertical + (parallaxMove * parallaxMultiplier);
+        // Ensure position stays within reasonable bounds (0-100%)
+        const clampedVertical = Math.max(0, Math.min(100, verticalPosition));
 
         // Apply fixed horizontal and dynamic vertical position
-        hero.style.backgroundPosition = `${baseHorizontal}% ${verticalPosition}%`;
+        hero.style.backgroundPosition = `${settings.baseHorizontal}% ${clampedVertical}%`;
 
         ticking = false;
     }
 
-    // Throttle parallax updates for better mobile performance
+    // Enhanced throttling for better performance across all devices
     let lastScrollTime = 0;
     const throttleDelay = 16; // ~60fps
 
@@ -83,14 +133,15 @@ function initParallax() {
     // Add scroll event listener with passive option for better mobile performance
     window.addEventListener('scroll', requestTick, { passive: true });
 
-    // Reset to initial position on window resize
+    // Reset to initial position on window resize with proper settings
     window.addEventListener('resize', function() {
-        if (window.innerWidth <= 768) {
-            hero.style.backgroundPosition = '15% 20%'; // Updated to match new mobile base position
-        } else {
-            hero.style.backgroundPosition = '20% 29%';
-        }
+        const settings = getParallaxSettings();
+        hero.style.backgroundPosition = `${settings.baseHorizontal}% ${settings.baseVertical}%`;
     });
+
+    // Initialize with correct starting position
+    const initialSettings = getParallaxSettings();
+    hero.style.backgroundPosition = `${initialSettings.baseHorizontal}% ${initialSettings.baseVertical}%`;
 }
 
 // Navigation highlighting based on scroll position
