@@ -48,50 +48,50 @@ function initParallax() {
         if (width <= 320) {
             // Very small mobile - maximum parallax for visibility
             return {
-                multiplier: 6.0,
+                multiplier: 3.0,
                 baseHorizontal: 15,
                 baseVertical: 25,
-                scrollDivider: 20 // More sensitive movement
+                scrollDivider: 40 // Less sensitive movement
             };
         } else if (width <= 480) {
             // Small mobile - strong parallax
             return {
-                multiplier: 5.0,
+                multiplier: 2.5,
                 baseHorizontal: 15,
                 baseVertical: 22,
-                scrollDivider: 22
+                scrollDivider: 44
             };
         } else if (width <= 768) {
             // Mobile/tablet - moderate parallax
             return {
-                multiplier: 4.0,
+                multiplier: 2.0,
                 baseHorizontal: 15,
                 baseVertical: 20,
-                scrollDivider: 25
+                scrollDivider: 50
             };
         } else if (width <= 1024) {
             // Tablet - reduced parallax
             return {
-                multiplier: 2.5,
+                multiplier: 1.25,
                 baseHorizontal: 18,
                 baseVertical: 25,
-                scrollDivider: 30
+                scrollDivider: 60
             };
         } else if (width <= 1440) {
             // Desktop - standard parallax
             return {
-                multiplier: 2.0,
+                multiplier: 1.0,
                 baseHorizontal: 20,
                 baseVertical: 29,
-                scrollDivider: 35
+                scrollDivider: 70
             };
         } else {
             // Large desktop - subtle parallax
             return {
-                multiplier: 1.5,
+                multiplier: 0.75,
                 baseHorizontal: 20,
                 baseVertical: 29,
-                scrollDivider: 40
+                scrollDivider: 80
             };
         }
     }
