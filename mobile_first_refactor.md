@@ -7,17 +7,21 @@ This document outlines a safe, incremental path to convert the site to mobile‑
 **✅ Phase 1 Complete** - Image pipeline and directory structure
 - Generated 42 optimized WebP derivatives across 8 source images
 - Created `images_optimized/` with proper category organization
-- Ready for Phase 3 responsive image markup implementation
+- Ready for responsive image markup implementation
 
-**⏳ Phase 2 Pending** - Mobile-first CSS conversion
-- Convert media queries to min-width breakpoints
-- Replace fixed grids with `repeat(auto-fit, minmax(...))`
-- Implement `clamp()` for fluid typography and spacing
-
-**⏳ Phase 3 Pending** - Responsive images in markup
+**⏳ Phase 2 Pending** - Responsive images in markup (do this next)
 - Update HTML to use `<picture>` elements with `srcset`
 - Set appropriate `sizes` attributes for layout breakpoints
 - Add `width`/`height` attributes to prevent layout shifts
+
+**⏳ Phase 3 Pending** - Page-by-page verification and QA
+- Convert individual page grids to fluid patterns where safe without full CSS flip
+- Lighthouse passes on mobile/desktop; fix regressions
+
+**⏳ Phase 4 Pending** - Mobile-first CSS conversion (do this last)
+- Convert media queries to min-width breakpoints
+- Replace fixed grids with `repeat(auto-fit, minmax(...))`
+- Implement `clamp()` for fluid typography and spacing
 
 ### Goals
 - **Mobile‑first CSS**: invert media queries to min‑width and make the base styles mobile.
@@ -125,65 +129,19 @@ if __name__ == "__main__":
         resize_to_width(img, dest)
 ```
 
-### Phase 2 — Mobile‑first CSS conversion
+### Phase 2 — Responsive images in markup
 
-1) Establish baseline mobile styles (no media queries) so the default experience is 320–480px wide.
-2) Replace fixed grids with fluid grids:
+1) Replace `<img>` with `<picture>`/`<source>` as needed.
+2) Add `srcset` and accurate `sizes` that reflect current layout (pre‑CSS‑flip).
+3) Add `width` and `height` to all `<img>` to prevent CLS.
+4) Use `loading="lazy"` and `decoding="async"` on non‑critical images.
+5) Use `fetchpriority="high"` only for the primary LCP hero image.
 
-```css
-/* Example gallery grid */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-  gap: clamp(0.75rem, 2.5vw, 2rem);
-}
-```
+### Phase 3 — Page‑by‑page verification and QA
 
-3) Convert media queries to min‑width breakpoints. Suggested tokens:
-
-```css
-:root {
-  --bp-sm: 30rem;   /* 480px */
-  --bp-md: 48rem;   /* 768px */
-  --bp-lg: 64rem;   /* 1024px */
-  --bp-xl: 80rem;   /* 1280px */
-}
-
-/* mobile-first base above; progressively enhance */
-@media (min-width: var(--bp-sm)) { /* small adjustments */ }
-@media (min-width: var(--bp-md)) { /* medium */ }
-@media (min-width: var(--bp-lg)) { /* large */ }
-@media (min-width: var(--bp-xl)) { /* xl */ }
-```
-
-4) Use `clamp()` for typography and spacings to scale smoothly:
-
-```css
-:root { --step-0: clamp(1rem, 0.9rem + 0.5vw, 1.125rem); }
-h1 { font-size: clamp(1.75rem, 1.25rem + 2.5vw, 3rem); }
-```
-
-5) Replace any width‑restricted containers with max‑width + fluid padding:
-
-```css
-.container {
-  max-width: 80rem;
-  margin-inline: auto;
-  padding-inline: clamp(1rem, 3vw, 2rem);
-}
-```
-
-6) Where helpful, consider container queries for components that live in narrow columns, not just viewport breakpoints (optional, modern browsers):
-
-```css
-/* example */
-@container (min-width: 40rem) {
-  .card-list { grid-template-columns: repeat(3, 1fr); }
-}
-```
-
-### Phase 3 — Responsive images in markup
-
+- Validate pages after markup changes and before the CSS flip.
+- Where safe, modernize isolated grids to fluid patterns without breaking current styles.
+- Run Lighthouse and fix any regressions.
 - Use `<picture>` with modern formats, then WebP, then JPEG fallback:
 
 ```html
@@ -206,14 +164,15 @@ h1 { font-size: clamp(1.75rem, 1.25rem + 2.5vw, 3rem); }
 />
 ```
 
-### Phase 4 — Page‑by‑page conversion and QA
+### Phase 4 — Mobile‑first CSS conversion (finalize)
 
 Order of operations (repeat per page/section):
-1) Replace images with `<picture>`/`srcset` sourcing from `images_optimized/`.
-2) Convert the page’s grids to `repeat(auto-fit, minmax(...))`.
-3) Flip the page’s media queries to min‑width, keeping old rules temporarily under comments while verifying.
-4) Validate spacing/typography using `clamp()` tokens.
-5) Lighthouse pass on mobile and desktop; fix regressions.
+1) Establish baseline mobile styles (no media queries) so default is 320–480px.
+2) Convert media queries to min‑width breakpoints.
+3) Convert grids to `repeat(auto-fit, minmax(...))`.
+4) Introduce fluid typography/spacing with `clamp()` tokens.
+5) Replace width‑restricted containers with max‑width + fluid padding.
+6) Optional: container queries for components in narrow columns.
 
 Suggested sequence:
 - `index.html` (hero, any featured grids) → biggest LCP win first.
@@ -241,6 +200,25 @@ Suggested sequence:
 - Preload critical CSS if it grows; consider inlining minimal critical CSS for the hero.
 - Compress text assets (gzip/brotli via hosting/CDN settings).
 - Cache optimized images aggressively with far‑future headers; keep file names immutable.
+
+## Guardrails while CSS is deferred
+
+- Add `width` and `height` on every `<img>` now to eliminate CLS early.
+- Choose conservative `sizes` values based on the current layout; revisit after CSS flip.
+- Avoid deleting existing CSS; stage the CSS flip in section‑scoped blocks and remove only after visual QA.
+- Introduce breakpoint tokens early (even if unused) so `sizes` choices align with upcoming breakpoints:
+
+```css
+:root {
+  --bp-sm: 30rem;   /* 480px */
+  --bp-md: 48rem;   /* 768px */
+  --bp-lg: 64rem;   /* 1024px */
+  --bp-xl: 80rem;   /* 1280px */
+}
+```
+
+- Limit changes to layout‑critical CSS before Phase 4; fix only high‑severity mobile bugs.
+- Keep file paths stable in `images_optimized/` to maximize caching.
 
 ## Acceptance criteria
 

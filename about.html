@@ -333,7 +333,8 @@
         /* Mobile Responsive */
         @media (max-width: 1024px) {
             .magazine-layout {
-                grid-template-columns: 1fr;
+                display: flex;
+                flex-direction: column;
                 gap: 48px;
                 padding: 0 16px;
             }
@@ -343,7 +344,6 @@
             }
 
             .sidebar {
-                order: -1;
                 gap: 24px;
             }
         }
@@ -391,7 +391,7 @@
             }
 
             .story-header h1 {
-                font-size: clamp(28px, 6vw, 48px);
+                font-size: clamp(32px, 6vw, 52px);
             }
 
             .story-paragraph.lead {
@@ -400,6 +400,10 @@
 
             .story-paragraph.lead em {
                 font-size: 20px;
+            }
+
+            .sidebar-title {
+                font-size: 28px;
             }
 
             .sidebar {
@@ -432,7 +436,7 @@
             }
 
             .story-header h1 {
-                font-size: clamp(24px, 6vw, 36px);
+                font-size: clamp(28px, 6vw, 40px);
             }
 
             .story-paragraph {
@@ -441,6 +445,10 @@
 
             .story-paragraph.lead {
                 font-size: 16px;
+            }
+
+            .sidebar-title {
+                font-size: 26px;
             }
 
             .sidebar-card {
@@ -480,7 +488,6 @@
         <div class="magazine-layout">
             <div class="story-header">
                 <h1>The Story Behind the Name</h1>
-                <p class="subtitle">A legacy of creativity spanning generations, from Marion Kennedy's pioneering work in the 1930s to our modern interior design studio today.</p>
             </div>
 
             <div class="main-content">
