@@ -124,21 +124,35 @@
         .hero {
             height: 100vh;
             min-height: 70vh;
-            background-image: url('images/stoddards/DSC06405.jpg');
+            position: relative;
+            overflow: hidden;
+            margin-top: 80px;
+            padding-top: 8vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
             background-size: cover;
             /* keep vertical position fixed at 29% and align horizontal baseline to 20% to match JS parallax start */
             background-position: 20% 29%;
             background-repeat: no-repeat;
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            text-align: center;
+        }
+
+        .hero-content {
             position: relative;
-            overflow: hidden;
-            margin-top: 80px;
-            padding-top: 8vh;
+            z-index: 3;
+            max-width: 1400px;
         }
 
         .hero::before {
@@ -149,12 +163,7 @@
             right: 0;
             bottom: 0;
             background: linear-gradient(to bottom, rgba(26, 26, 26, 0.8) 0%, rgba(26, 26, 26, 0.3) 100%);
-        }
-
-        .hero-content {
-            position: relative;
             z-index: 2;
-            max-width: 1400px;
         }
 
         .hero-logo {
@@ -165,6 +174,11 @@
             margin-right: auto;
             display: block;
             opacity: 0.95;
+        }
+
+        .hero-logo picture img {
+            height: 140px;
+            width: auto;
         }
 
         .hero h1 {
@@ -1395,7 +1409,12 @@
     <!-- Navigation -->
     <nav class="navigation">
         <div class="nav-container">
-            <a href="#" class="logo"><img src="images/1584_logo_white_thick.png" alt="1584 Interior Design" /></a>
+            <a href="#" class="logo">
+                <picture>
+                    <source type="image/webp" srcset="images_optimized/logos/1584_logo_white_thick-40.webp 40w, images_optimized/logos/1584_logo_white_thick-60.webp 60w, images_optimized/logos/1584_logo_white_thick-80.webp 80w, images_optimized/logos/1584_logo_white_thick-120.webp 120w" sizes="40px">
+                    <img src="images/1584_logo_white_thick.png" alt="1584 Interior Design" width="80" height="40" loading="lazy" decoding="async">
+                </picture>
+            </a>
             <ul class="nav-menu">
                 <!-- Navigation menu generated dynamically by JavaScript -->
             </ul>
@@ -1405,8 +1424,15 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <picture class="hero-background">
+            <source type="image/webp" srcset="images_optimized/hero/DSC06405/DSC06405-960.webp 960w, images_optimized/hero/DSC06405/DSC06405-1280.webp 1280w, images_optimized/hero/DSC06405/DSC06405-1600.webp 1600w, images_optimized/hero/DSC06405/DSC06405-1920.webp 1920w" sizes="100vw">
+            <img src="images/stoddards/DSC06405.jpg" alt="Hero Background" style="width: 100%; height: 100%; object-fit: cover; object-position: 20% 29%;" fetchpriority="high">
+        </picture>
         <div class="hero-content">
-            <img src="images/1584_logo_white_thick.png" alt="1584 Design" class="hero-logo">
+            <picture class="hero-logo">
+                <source type="image/webp" srcset="images_optimized/logos/1584_logo_white_thick-80.webp 80w, images_optimized/logos/1584_logo_white_thick-120.webp 120w, images_optimized/logos/1584_logo_white_thick-160.webp 160w, images_optimized/logos/1584_logo_white_thick-200.webp 200w" sizes="140px">
+                <img src="images/1584_logo_white_thick.png" alt="1584 Design" width="200" height="100" loading="lazy" decoding="async">
+            </picture>
             <h1>Welcome to Our Passion</h1>
             <p class="hero-subtitle">
                 Crafting Extraordinary Spaces for Exclusive Clients with Full Service Interior Design
@@ -1431,21 +1457,30 @@
             <div class="portfolio-preview-cards">
                 <div class="portfolio-card" onclick="window.location.href='portfolio.html#bedrooms'">
                     <div class="card-preview">
-                        <img src="images/portfolio_category_cards/DSC06420-HDR.jpg" alt="Bedrooms Preview">
+                        <picture>
+                            <source type="image/webp" srcset="images_optimized/portfolio/cards/DSC06420-HDR-320.webp 320w, images_optimized/portfolio/cards/DSC06420-HDR-480.webp 480w, images_optimized/portfolio/cards/DSC06420-HDR-640.webp 640w, images_optimized/portfolio/cards/DSC06420-HDR-768.webp 768w" sizes="(min-width: 80rem) 20vw, (min-width: 48rem) 33vw, 90vw">
+                            <img src="images/portfolio_category_cards/DSC06420-HDR.jpg" alt="Bedrooms Preview" width="768" height="512" loading="lazy" decoding="async">
+                        </picture>
                         <div class="card-title-overlay">Bedrooms</div>
                     </div>
                 </div>
 
                 <div class="portfolio-card" onclick="window.location.href='portfolio.html#living-spaces'">
                     <div class="card-preview">
-                        <img src="images/portfolio_category_cards/DSC06355-HDR.jpg" alt="Living Spaces Preview">
+                        <picture>
+                            <source type="image/webp" srcset="images_optimized/portfolio/cards/DSC06355-HDR-320.webp 320w, images_optimized/portfolio/cards/DSC06355-HDR-480.webp 480w, images_optimized/portfolio/cards/DSC06355-HDR-640.webp 640w, images_optimized/portfolio/cards/DSC06355-HDR-768.webp 768w" sizes="(min-width: 80rem) 20vw, (min-width: 48rem) 33vw, 90vw">
+                            <img src="images/portfolio_category_cards/DSC06355-HDR.jpg" alt="Living Spaces Preview" width="768" height="512" loading="lazy" decoding="async">
+                        </picture>
                         <div class="card-title-overlay">Living Spaces</div>
                     </div>
                 </div>
 
                 <div class="portfolio-card" onclick="window.location.href='portfolio.html#outdoor-spaces'">
                     <div class="card-preview">
-                        <img src="images/portfolio_category_cards/DSC06465-HDR.jpg" alt="More Spaces Preview">
+                        <picture>
+                            <source type="image/webp" srcset="images_optimized/portfolio/cards/DSC06465-HDR-320.webp 320w, images_optimized/portfolio/cards/DSC06465-HDR-480.webp 480w, images_optimized/portfolio/cards/DSC06465-HDR-640.webp 640w, images_optimized/portfolio/cards/DSC06465-HDR-768.webp 768w" sizes="(min-width: 80rem) 20vw, (min-width: 48rem) 33vw, 90vw">
+                            <img src="images/portfolio_category_cards/DSC06465-HDR.jpg" alt="More Spaces Preview" width="768" height="512" loading="lazy" decoding="async">
+                        </picture>
                         <div class="card-title-overlay">More Spaces</div>
                     </div>
                 </div>

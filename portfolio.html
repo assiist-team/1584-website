@@ -606,7 +606,12 @@
     <!-- Navigation -->
     <nav class="navigation">
         <div class="nav-container">
-            <a href="index.html" class="logo"><img src="images/1584_logo_white_thick.png" alt="1584 Interior Design" /></a>
+            <a href="index.html" class="logo">
+                <picture>
+                    <source type="image/webp" srcset="images_optimized/logos/1584_logo_white_thick-40.webp 40w, images_optimized/logos/1584_logo_white_thick-60.webp 60w, images_optimized/logos/1584_logo_white_thick-80.webp 80w, images_optimized/logos/1584_logo_white_thick-120.webp 120w" sizes="40px">
+                    <img src="images/1584_logo_white_thick.png" alt="1584 Interior Design" width="80" height="40" loading="lazy" decoding="async">
+                </picture>
+            </a>
             <ul class="nav-menu">
                 <!-- Navigation menu generated dynamically by JavaScript -->
             </ul>
@@ -688,7 +693,10 @@
             <button class="modal-close-overlay" onclick="closeModal()">&times;</button>
             <div class="modal-content">
                 <div class="modal-image-container">
-                    <img class="modal-image" id="modalImage" src="" alt="">
+                    <picture class="modal-image-container">
+                        <source type="image/webp" id="modalSource" srcset="">
+                        <img class="modal-image" id="modalImage" src="" alt="">
+                    </picture>
                     <button class="modal-nav-chevron left" id="prevBtn" onclick="previousImage()">&#8249;</button>
                     <button class="modal-nav-chevron right" id="nextBtn" onclick="nextImage()">&#8250;</button>
                 </div>
@@ -863,7 +871,9 @@
 
             // Show first image
             modalImage.classList.remove('loaded');
+            const modalSource = document.getElementById('modalSource');
             modalImage.src = portfolioData[category].images[0];
+            modalSource.srcset = getOptimizedImageUrl(portfolioData[category].images[0]);
             modalImage.alt = `${portfolioData[category].title} Image 1`;
 
             // Handle image loading
@@ -929,7 +939,9 @@
 
             // Update main image
             modalImage.classList.remove('loaded');
+            const modalSource = document.getElementById('modalSource');
             modalImage.src = portfolioData[currentCategory].images[index];
+            modalSource.srcset = getOptimizedImageUrl(portfolioData[currentCategory].images[index]);
             modalImage.alt = `${portfolioData[currentCategory].title} Image ${index + 1}`;
 
             // Handle image loading
@@ -1027,6 +1039,16 @@
             });
         }
 
+        function getOptimizedImageUrl(originalUrl) {
+            // Extract the filename from the external URL
+            const urlParts = originalUrl.split('/');
+            const filename = urlParts[urlParts.length - 1];
+            const baseFilename = filename.replace('.jpeg', '').replace('.jpg', '');
+
+            // Return the path to the optimized version (1024px for portfolio grid)
+            return `images_optimized/portfolio/gallery/${baseFilename}-1024.webp`;
+        }
+
         function createPortfolioItem(category, imageSrc, index) {
             const item = document.createElement('div');
             item.className = 'portfolio-item';
@@ -1035,14 +1057,28 @@
             const imageContainer = document.createElement('div');
             imageContainer.className = 'portfolio-item-image';
 
+            // Create responsive picture element for optimized images
+            const picture = document.createElement('picture');
+
+            const source = document.createElement('source');
+            source.type = 'image/webp';
+            source.srcset = `${getOptimizedImageUrl(imageSrc)} 1024w`;
+            source.sizes = '(min-width: 80rem) 25vw, (min-width: 48rem) 33vw, 90vw';
+
             const img = document.createElement('img');
-            img.src = imageSrc;
+            img.src = imageSrc; // Fallback to original
             img.alt = `${portfolioData[category].title} Image ${index + 1}`;
+            img.width = '400';
+            img.height = '300';
+            img.loading = 'lazy';
+            img.decoding = 'async';
             img.onload = function() {
                 this.style.opacity = '1';
             };
 
-            imageContainer.appendChild(img);
+            picture.appendChild(source);
+            picture.appendChild(img);
+            imageContainer.appendChild(picture);
             item.appendChild(imageContainer);
 
             return item;
@@ -1064,7 +1100,9 @@
 
             // Show selected image
             modalImage.classList.remove('loaded');
+            const modalSource = document.getElementById('modalSource');
             modalImage.src = portfolioData[category].images[imageIndex];
+            modalSource.srcset = getOptimizedImageUrl(portfolioData[category].images[imageIndex]);
             modalImage.alt = `${portfolioData[category].title} Image ${imageIndex + 1}`;
 
             // Handle image loading
