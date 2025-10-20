@@ -314,24 +314,31 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle anchor scrolling for direct navigation to index.html#section
     const hash = window.location.hash;
     if (hash && hash.length > 1) {
-        const target = document.querySelector(hash);
-        if (target) {
-            // Small delay to ensure page is fully loaded and navigation height is calculated correctly
+        // Special-case the contact trigger: there may be no element with id="contact",
+        // but we still want to open the survey popup when arriving at index.html#contact
+        if (hash === '#contact') {
+            // Small delay to ensure page is fully loaded, navigation height is calculated,
+            // and popup DOM has been parsed/initialized.
             setTimeout(() => {
-                const navHeight = document.querySelector('.navigation').offsetHeight;
-                const targetPosition = target.offsetTop - navHeight;
-
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-
-                // If the hash is '#contact', open the survey/contact popup automatically
-                if (hash === '#contact' && typeof openSurveyPopup === 'function') {
-                    // Slight delay to ensure popup DOM exists and event handlers are initialized
+                if (typeof openSurveyPopup === 'function') {
+                    // Slight extra delay to ensure popup handlers are ready
                     setTimeout(() => { openSurveyPopup(); }, 150);
                 }
             }, 100);
+        } else {
+            const target = document.querySelector(hash);
+            if (target) {
+                // Small delay to ensure page is fully loaded and navigation height is calculated correctly
+                setTimeout(() => {
+                    const navHeight = document.querySelector('.navigation').offsetHeight;
+                    const targetPosition = target.offsetTop - navHeight;
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }, 100);
+            }
         }
     }
 });
