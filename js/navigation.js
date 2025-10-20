@@ -330,8 +330,14 @@ document.addEventListener('DOMContentLoaded', function() {
             if (target) {
                 // Small delay to ensure page is fully loaded and navigation height is calculated correctly
                 setTimeout(() => {
-                    const navHeight = document.querySelector('.navigation').offsetHeight;
-                    const targetPosition = target.offsetTop - navHeight;
+                    // Account for both the main navigation and the portfolio-specific nav (if present)
+                    const navHeight = document.querySelector('.navigation')?.offsetHeight || 0;
+                    const portfolioNavHeight = document.querySelector('.portfolio-nav')?.offsetHeight || 0;
+                    // When a portfolio nav exists, the click handler also added an extra 20px buffer
+                    const extraBuffer = portfolioNavHeight ? 20 : 0;
+                    const totalOffset = navHeight + portfolioNavHeight + extraBuffer;
+
+                    const targetPosition = target.offsetTop - totalOffset;
 
                     window.scrollTo({
                         top: targetPosition,
