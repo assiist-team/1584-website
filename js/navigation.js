@@ -17,53 +17,61 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// Smooth scrolling for anchor links (accounting for fixed navigation)
-document.querySelectorAll('a[href*="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        const href = this.getAttribute('href');
+// Delegate clicks for anchor links (works for dynamically generated nav items)
+// Handles same-page anchors and cross-page anchors like "index.html#reviews"
+document.addEventListener('click', function (e) {
+    const anchor = e.target.closest && e.target.closest('a[href*="#"]');
+    if (!anchor) return;
 
-        // Handle cross-page anchor links (e.g., "index.html#reviews")
-        if (href && href.includes('#') && !href.startsWith('#')) {
-            e.preventDefault();
+    const href = anchor.getAttribute('href');
+    if (!href) return;
 
-            // Extract the page and anchor parts
-            const [pagePath, anchorPart] = href.split('#');
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    // Cross-page anchor, e.g. "index.html#reviews"
+    if (href.includes('#') && !href.startsWith('#')) {
+        e.preventDefault();
 
-            // If the target page is different from current page, navigate there first
-            if (pagePath && pagePath !== currentPage && pagePath !== window.location.pathname) {
-                // Navigate to the target page with the anchor
-                window.location.href = href;
-                return;
-            }
+        const [pagePath, anchorPart] = href.split('#');
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
-            // If we're already on the target page, just scroll to the anchor
-            const target = document.querySelector(`#${anchorPart}`);
-            if (target) {
-                const navHeight = document.querySelector('.navigation').offsetHeight;
-                const targetPosition = target.offsetTop - navHeight;
-
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
+        // If navigating to a different page, just go there
+        if (pagePath && pagePath !== currentPage && pagePath !== window.location.pathname) {
+            window.location.href = href;
+            return;
         }
-        // Handle same-page anchor links (existing functionality)
-        else if (href && href.startsWith('#')) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                const navHeight = document.querySelector('.navigation').offsetHeight;
-                const targetPosition = target.offsetTop - navHeight;
 
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
+        // Same page anchor after navigation or already on page
+        const target = document.querySelector(`#${anchorPart}`);
+        if (target) {
+            const navHeight = document.querySelector('.navigation').offsetHeight;
+            const targetPosition = target.offsetTop - navHeight;
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
         }
-    });
+        return;
+    }
+
+    // Same-page anchor like "#process"
+    if (href.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+            const navHeight = document.querySelector('.navigation').offsetHeight;
+            const targetPosition = target.offsetTop - navHeight;
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+
+        // If this anchor is the contact trigger, open the popup (when on index)
+        if (href === '#contact' && typeof openSurveyPopup === 'function') {
+            openSurveyPopup();
+        }
+    }
 });
 
 // Parallax scrolling for hero background - Enhanced for all screen sizes
@@ -317,6 +325,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     top: targetPosition,
                     behavior: 'smooth'
                 });
+
+                // If the hash is '#contact', open the survey/contact popup automatically
+                if (hash === '#contact' && typeof openSurveyPopup === 'function') {
+                    // Slight delay to ensure popup DOM exists and event handlers are initialized
+                    setTimeout(() => { openSurveyPopup(); }, 150);
+                }
             }, 100);
         }
     }
