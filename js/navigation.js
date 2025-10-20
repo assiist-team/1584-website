@@ -314,38 +314,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle anchor scrolling for direct navigation to index.html#section
     const hash = window.location.hash;
     if (hash && hash.length > 1) {
-        // Special-case the contact trigger: there may be no element with id="contact",
-        // but we still want to open the survey popup when arriving at index.html#contact
-        if (hash === '#contact') {
-            // Small delay to ensure page is fully loaded, navigation height is calculated,
-            // and popup DOM has been parsed/initialized.
-            setTimeout(() => {
-                if (typeof openSurveyPopup === 'function') {
-                    // Slight extra delay to ensure popup handlers are ready
-                    setTimeout(() => { openSurveyPopup(); }, 150);
-                }
-            }, 100);
-        } else {
-            const target = document.querySelector(hash);
+        const target = document.querySelector(hash);
+
+        // Small delay to ensure page is fully loaded and navigation height is calculated correctly
+        setTimeout(() => {
             if (target) {
-                // Small delay to ensure page is fully loaded and navigation height is calculated correctly
-                setTimeout(() => {
-                    // Account for both the main navigation and the portfolio-specific nav (if present)
-                    const navHeight = document.querySelector('.navigation')?.offsetHeight || 0;
-                    const portfolioNavHeight = document.querySelector('.portfolio-nav')?.offsetHeight || 0;
-                    // When a portfolio nav exists, the click handler also added an extra 20px buffer
-                    const extraBuffer = portfolioNavHeight ? 20 : 0;
-                    const totalOffset = navHeight + portfolioNavHeight + extraBuffer;
+                const navHeight = document.querySelector('.navigation').offsetHeight;
+                const targetPosition = target.offsetTop - navHeight;
 
-                    const targetPosition = target.offsetTop - totalOffset;
-
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }, 100);
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
             }
-        }
+
+            // If the hash is '#contact', open the survey/contact popup automatically
+            // Do this regardless of whether a page element with that id exists so
+            // cross-page links like "index.html#contact" reliably open the popup.
+            if (hash === '#contact' && typeof openSurveyPopup === 'function') {
+                // Slight delay to ensure popup DOM exists and event handlers are initialized
+                setTimeout(() => { openSurveyPopup(); }, 150);
+            }
+        }, 100);
     }
 });
 
