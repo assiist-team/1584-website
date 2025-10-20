@@ -142,13 +142,12 @@
 
         .story-header h1 {
             font-family: 'Baskerville', Palatino, Garamond, serif;
-            font-size: clamp(48px, 6vw, 64px);
+            font-size: clamp(42px, 6vw, 64px);
             font-weight: 400;
             color: #9a7d55;
             margin-top: 24px;
             letter-spacing: -0.02em;
             line-height: 1.1;
-            white-space: nowrap;
         }
 
         .story-header .subtitle {
@@ -351,7 +350,7 @@
         /* Mobile Responsive */
         @media (max-width: 1024px) {
             .single-column-layout {
-                padding: 0 24px;
+                padding: 24px 24px 0 24px; /* keep top spacing on narrow viewports */
             }
 
             .story-content {
@@ -410,7 +409,8 @@
             }
 
             .story-header h1 {
-                font-size: clamp(32px, 6vw, 52px);
+                font-size: clamp(38px, 6vw, 52px);
+                margin-top: 24px;
             }
 
             .story-paragraph.lead {
@@ -452,7 +452,7 @@
             }
 
             .story-header h1 {
-                font-size: clamp(36px, 6vw, 40px);
+                font-size: clamp(34px, 6vw, 40px);
             }
 
             .story-paragraph {
