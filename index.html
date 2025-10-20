@@ -124,21 +124,18 @@
         .hero {
             height: 100vh;
             min-height: 70vh;
-            background-image: url('images/stoddards/DSC06405.jpg');
-            background-size: cover;
-            /* keep vertical position fixed at 29% and align horizontal baseline to 20% to match JS parallax start */
-            background-position: 20% 29%;
-            background-repeat: no-repeat;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            text-align: center;
             position: relative;
             overflow: hidden;
             margin-top: 80px;
             padding-top: 8vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            text-align: center;
+            background-image: url('images/stoddards/DSC06405.jpg');
+            background-size: cover;
+            background-position: 20% 29%;
+            background-repeat: no-repeat;
         }
 
         .hero::before {
@@ -700,9 +697,6 @@
                 display: block;
             }
 
-            .hero-content {
-            }
-
             .hero h1 {
                 margin-bottom: 12px;
             }
@@ -887,10 +881,7 @@
                 padding-right: 16px;
             }
 
-            /* Fix portfolio cards layout - already handled by @media (max-width: 768px) above */
-            .card-preview {
-                min-height: 260px;
-            }
+            /* Portfolio cards now use consistent aspect-ratio sizing */
 
             .social-proof-section {
                 min-height: 50vh;
@@ -1287,22 +1278,30 @@
 
         .portfolio-preview-cards {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, minmax(300px, 1fr));
             gap: 24px;
-            margin: 48px 0;
+            margin: 48px auto;
+            max-width: 1200px;
             position: relative;
             z-index: 2;
         }
 
         /* Portfolio cards responsive behavior for narrower screens */
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .portfolio-preview-cards {
-                grid-template-columns: 1fr !important;
+                grid-template-columns: repeat(2, minmax(300px, 1fr));
                 gap: 20px;
             }
+        }
 
-            .card-preview {
-                min-height: 280px;
+        @media (max-width: 600px) {
+            .portfolio-preview-cards {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .container {
+                padding: 0 16px;
             }
         }
 
@@ -1325,7 +1324,7 @@
 
         .card-preview {
             width: 100%;
-            flex: 1;
+            aspect-ratio: 3 / 2;
             background: linear-gradient(45deg, #E8E4DF 25%, transparent 25%),
                         linear-gradient(-45deg, #E8E4DF 25%, transparent 25%),
                         linear-gradient(45deg, transparent 75%, #E8E4DF 75%),
@@ -1333,18 +1332,14 @@
             background-size: 20px 20px;
             background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 200px;
+            overflow: hidden;
         }
 
         .card-preview img {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-            object-fit: contain;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
             opacity: 1;
             transition: opacity 0.3s ease;
         }
@@ -1395,7 +1390,9 @@
     <!-- Navigation -->
     <nav class="navigation">
         <div class="nav-container">
-            <a href="#" class="logo"><img src="images/1584_logo_white_thick.png" alt="1584 Interior Design" /></a>
+            <a href="#" class="logo">
+                <img src="images/1584_logo_white_thick.png" alt="1584 Interior Design" width="80" height="40" loading="lazy" decoding="async">
+            </a>
             <ul class="nav-menu">
                 <!-- Navigation menu generated dynamically by JavaScript -->
             </ul>
@@ -1406,7 +1403,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <img src="images/1584_logo_white_thick.png" alt="1584 Design" class="hero-logo">
+            <img src="images/1584_logo_white_thick.png" alt="1584 Design" width="200" height="100" loading="lazy" decoding="async" class="hero-logo">
             <h1>Welcome to Our Passion</h1>
             <p class="hero-subtitle">
                 Crafting Extraordinary Spaces for Exclusive Clients with Full Service Interior Design
@@ -1431,21 +1428,30 @@
             <div class="portfolio-preview-cards">
                 <div class="portfolio-card" onclick="window.location.href='portfolio.html#bedrooms'">
                     <div class="card-preview">
-                        <img src="images/portfolio_category_cards/DSC06420-HDR.jpg" alt="Bedrooms Preview">
+                        <picture>
+                            <source type="image/webp" srcset="images_optimized/portfolio/cards/DSC06420-HDR-320.webp 320w, images_optimized/portfolio/cards/DSC06420-HDR-480.webp 480w, images_optimized/portfolio/cards/DSC06420-HDR-640.webp 640w, images_optimized/portfolio/cards/DSC06420-HDR-768.webp 768w, images_optimized/portfolio/cards/DSC06420-HDR-1024.webp 1024w, images_optimized/portfolio/cards/DSC06420-HDR-1280.webp 1280w, images_optimized/portfolio/cards/DSC06420-HDR-1536.webp 1536w, images_optimized/portfolio/cards/DSC06420-HDR-1920.webp 1920w" sizes="(min-width: 80rem) 20vw, (min-width: 48rem) 33vw, 90vw">
+                            <img src="images/portfolio_category_cards/DSC06420-HDR.jpg" alt="Bedrooms Preview" width="1920" height="1280" loading="lazy" decoding="async">
+                        </picture>
                         <div class="card-title-overlay">Bedrooms</div>
                     </div>
                 </div>
 
                 <div class="portfolio-card" onclick="window.location.href='portfolio.html#living-spaces'">
                     <div class="card-preview">
-                        <img src="images/portfolio_category_cards/DSC06355-HDR.jpg" alt="Living Spaces Preview">
+                        <picture>
+                            <source type="image/webp" srcset="images_optimized/portfolio/cards/DSC06355-HDR-320.webp 320w, images_optimized/portfolio/cards/DSC06355-HDR-480.webp 480w, images_optimized/portfolio/cards/DSC06355-HDR-640.webp 640w, images_optimized/portfolio/cards/DSC06355-HDR-768.webp 768w, images_optimized/portfolio/cards/DSC06355-HDR-1024.webp 1024w, images_optimized/portfolio/cards/DSC06355-HDR-1280.webp 1280w, images_optimized/portfolio/cards/DSC06355-HDR-1536.webp 1536w, images_optimized/portfolio/cards/DSC06355-HDR-1920.webp 1920w" sizes="(min-width: 80rem) 20vw, (min-width: 48rem) 33vw, 90vw">
+                            <img src="images/portfolio_category_cards/DSC06355-HDR.jpg" alt="Living Spaces Preview" width="1920" height="1280" loading="lazy" decoding="async">
+                        </picture>
                         <div class="card-title-overlay">Living Spaces</div>
                     </div>
                 </div>
 
                 <div class="portfolio-card" onclick="window.location.href='portfolio.html#outdoor-spaces'">
                     <div class="card-preview">
-                        <img src="images/portfolio_category_cards/DSC06465-HDR.jpg" alt="More Spaces Preview">
+                        <picture>
+                            <source type="image/webp" srcset="images_optimized/portfolio/cards/DSC06465-HDR-320.webp 320w, images_optimized/portfolio/cards/DSC06465-HDR-480.webp 480w, images_optimized/portfolio/cards/DSC06465-HDR-640.webp 640w, images_optimized/portfolio/cards/DSC06465-HDR-768.webp 768w, images_optimized/portfolio/cards/DSC06465-HDR-1024.webp 1024w, images_optimized/portfolio/cards/DSC06465-HDR-1280.webp 1280w, images_optimized/portfolio/cards/DSC06465-HDR-1536.webp 1536w, images_optimized/portfolio/cards/DSC06465-HDR-1920.webp 1920w" sizes="(min-width: 80rem) 20vw, (min-width: 48rem) 33vw, 90vw">
+                            <img src="images/portfolio_category_cards/DSC06465-HDR.jpg" alt="More Spaces Preview" width="1920" height="1280" loading="lazy" decoding="async">
+                        </picture>
                         <div class="card-title-overlay">More Spaces</div>
                     </div>
                 </div>

@@ -115,18 +115,10 @@ function initParallax() {
         ticking = false;
     }
 
-    // Enhanced throttling for better performance across all devices
-    let lastScrollTime = 0;
-    const throttleDelay = 16; // ~60fps
-
     function requestTick() {
         if (!ticking) {
-            const now = Date.now();
-            if (now - lastScrollTime >= throttleDelay) {
-                requestAnimationFrame(updateParallax);
-                lastScrollTime = now;
-                ticking = true;
-            }
+            requestAnimationFrame(updateParallax);
+            ticking = true;
         }
     }
 
@@ -134,14 +126,10 @@ function initParallax() {
     window.addEventListener('scroll', requestTick, { passive: true });
 
     // Reset to initial position on window resize with proper settings
-    window.addEventListener('resize', function() {
-        const settings = getParallaxSettings();
-        hero.style.backgroundPosition = `${settings.baseHorizontal}% ${settings.baseVertical}%`;
-    });
+    window.addEventListener('resize', requestTick);
 
     // Initialize with correct starting position
-    const initialSettings = getParallaxSettings();
-    hero.style.backgroundPosition = `${initialSettings.baseHorizontal}% ${initialSettings.baseVertical}%`;
+    requestTick();
 }
 
 // Navigation highlighting based on scroll position
