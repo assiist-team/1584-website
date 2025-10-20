@@ -349,3 +349,114 @@ function initCTAButton() {
 
 // Initialize CTA button if it exists
 document.addEventListener('DOMContentLoaded', initCTAButton);
+
+// Survey Popup Functions
+function openSurveyPopup() {
+    const popup = document.getElementById('surveyPopup');
+    if (popup) {
+        popup.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+
+        // Focus management for accessibility
+        const popupContainer = popup.querySelector('.popup-container');
+        if (popupContainer) {
+            popupContainer.focus();
+        }
+
+        // Store reference to the button that opened the popup for focus return
+        const activeElement = document.activeElement;
+        popup.setAttribute('data-focus-return', activeElement ? activeElement.id || 'survey-trigger' : 'survey-trigger');
+
+        // Track popup open event
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'popup_opened', {
+                'event_category': 'engagement',
+                'event_label': 'consultation_popup'
+            });
+        }
+    }
+}
+
+function closeSurveyPopup() {
+    const popup = document.getElementById('surveyPopup');
+    if (popup) {
+        popup.classList.remove('active');
+        document.body.style.overflow = ''; // Restore background scrolling
+
+        // Return focus to the button that opened the popup
+        const focusReturnId = popup.getAttribute('data-focus-return') || 'survey-trigger';
+        const triggerButton = document.querySelector(`#${focusReturnId}`) ||
+                             document.querySelector('[data-popup-trigger="survey"]') ||
+                             document.querySelector('a[href="#contact"]');
+
+        if (triggerButton) {
+            triggerButton.focus();
+        }
+
+        // Clean up the focus return attribute
+        popup.removeAttribute('data-focus-return');
+    }
+}
+
+// Close popup when clicking on overlay
+document.addEventListener('click', function(event) {
+    const popup = document.getElementById('surveyPopup');
+    if (popup && popup.classList.contains('active')) {
+        const popupContainer = popup.querySelector('.popup-container');
+        const isClickInsidePopup = popupContainer && popupContainer.contains(event.target);
+
+        if (!isClickInsidePopup && event.target === popup) {
+            closeSurveyPopup();
+        }
+    }
+});
+
+// Close popup on Escape key and handle tab navigation
+document.addEventListener('keydown', function(event) {
+    const popup = document.getElementById('surveyPopup');
+
+    if (popup && popup.classList.contains('active')) {
+        if (event.key === 'Escape') {
+            closeSurveyPopup();
+        } else if (event.key === 'Tab') {
+            // Handle tab navigation within the popup
+            const focusableElements = popup.querySelectorAll(
+                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"]), iframe'
+            );
+            const firstFocusable = focusableElements[0];
+            const lastFocusable = focusableElements[focusableElements.length - 1];
+
+            if (event.shiftKey) {
+                // Shift + Tab
+                if (document.activeElement === firstFocusable) {
+                    event.preventDefault();
+                    lastFocusable.focus();
+                }
+            } else {
+                // Tab
+                if (document.activeElement === lastFocusable) {
+                    event.preventDefault();
+                    firstFocusable.focus();
+                }
+            }
+        }
+    }
+});
+
+// Initialize popup functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Find all buttons that should trigger the survey popup
+    const triggerButtons = document.querySelectorAll('[data-popup-trigger="survey"], a[href="#contact"]');
+
+    triggerButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            openSurveyPopup();
+        });
+
+        // Add data attribute to track which buttons trigger the popup
+        if (!button.hasAttribute('data-popup-trigger')) {
+            button.setAttribute('data-popup-trigger', 'survey');
+        }
+    });
+});
