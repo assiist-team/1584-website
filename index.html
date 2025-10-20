@@ -1480,43 +1480,36 @@
         /* Survey embed container */
         .survey-container {
             margin: 0 -32px;
+            display: flex;
+            justify-content: center;
         }
 
         .survey-container iframe {
             border: none;
             width: 100%;
+            max-width: 100%;
             height: 600px;
             background: #FAFAF7;
         }
 
-        /* Desktop override - footer not clickable */
-        @media (min-width: 769px) {
-            .popup-footer {
-                cursor: default;
-            }
-
-            .popup-footer:hover {
-                background: #F5F2ED;
-            }
-
-            .popup-footer::after {
-                display: none;
-            }
-        }
 
         /* Mobile responsive popup */
         @media (max-width: 768px) {
             .popup-overlay {
-                padding: 0;
-                align-items: flex-end;
+                padding: 20px 16px;
+                align-items: center;
+                justify-content: center;
             }
 
             .popup-container {
-                max-height: 100vh;
-                height: 100vh;
-                border-radius: 0;
+                max-height: 90vh;
+                height: auto;
+                max-width: 100%;
+                width: 100%;
+                border-radius: 12px;
                 display: flex;
                 flex-direction: column;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             }
 
             .popup-header {
@@ -1525,7 +1518,7 @@
                 top: 0;
                 z-index: 10;
                 background: #9a7d55;
-                border-radius: 0;
+                border-radius: 12px 12px 0 0;
                 flex-shrink: 0;
             }
 
@@ -1533,48 +1526,42 @@
                 padding: 0;
                 flex: 1;
                 overflow-y: auto;
-                max-height: none;
+                max-height: calc(90vh - 140px);
             }
 
             .popup-footer {
                 padding: 16px 20px;
                 background: #F5F2ED;
                 border-top: 1px solid #E8E4DF;
+                border-radius: 0 0 12px 12px;
                 flex-shrink: 0;
             }
 
             .survey-container {
                 margin: 0;
                 padding: 20px;
+                display: flex;
+                justify-content: center;
             }
 
             .survey-container iframe {
-                height: calc(100vh - 140px); /* Account for header and footer */
+                width: 100%;
+                max-width: 100%;
+                height: 500px;
                 min-height: 400px;
             }
 
-            /* Bottom close area for mobile */
+            /* Footer styling for mobile */
             .popup-footer {
-                cursor: pointer;
-                transition: background-color 0.2s ease;
-            }
-
-            .popup-footer:hover {
-                background: #E8E4DF;
-            }
-
-            .popup-footer::after {
-                content: 'Tap here or use × button to close';
-                display: block;
-                text-align: center;
-                font-size: 12px;
-                color: #735C3A;
-                margin-top: 8px;
-                cursor: pointer;
+                background: #F5F2ED;
             }
         }
 
         @media (max-width: 480px) {
+            .popup-overlay {
+                padding: 16px 12px;
+            }
+
             .popup-header {
                 padding: 14px 16px;
             }
@@ -1592,7 +1579,7 @@
             }
 
             .survey-container iframe {
-                height: calc(100vh - 120px); /* Slightly less height on small screens */
+                height: 450px;
                 min-height: 350px;
             }
         }
@@ -1808,7 +1795,7 @@
                     </iframe>
                 </div>
             </div>
-            <div class="popup-footer" onclick="closeSurveyPopup()">
+            <div class="popup-footer">
                 <p id="popup-description">Your information is secure and will only be used to respond to your consultation request.</p>
             </div>
         </div>
