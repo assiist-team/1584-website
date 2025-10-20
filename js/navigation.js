@@ -31,10 +31,14 @@ document.addEventListener('click', function (e) {
         e.preventDefault();
 
         const [pagePath, anchorPart] = href.split('#');
-        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+        // Normalize current page and the target pagePath to compare reliably
+        const rawName = window.location.pathname.split('/').pop() || '';
+        const currentPage = rawName === '' ? 'index.html' : (rawName.endsWith('.html') ? rawName : `${rawName}.html`);
+        const normalizedPagePath = pagePath ? pagePath.replace(/^\//, '') : '';
 
         // If navigating to a different page, just go there
-        if (pagePath && pagePath !== currentPage && pagePath !== window.location.pathname) {
+        if (normalizedPagePath && normalizedPagePath !== currentPage) {
             window.location.href = href;
             return;
         }
@@ -65,12 +69,15 @@ document.addEventListener('click', function (e) {
                 top: targetPosition,
                 behavior: 'smooth'
             });
-        }
 
-        // If this anchor is the contact trigger, open the popup (when on index)
-        if (href === '#contact' && typeof openSurveyPopup === 'function') {
-            openSurveyPopup();
+            // If this anchor is the contact trigger, open the popup (when on index)
+            if (href === '#contact' && typeof openSurveyPopup === 'function') {
+                openSurveyPopup();
+            }
         }
+        // Do not attempt to redirect fragment-only hrefs here. generateNavigation
+        // will produce cross-page links (e.g. '/index.html#reviews') for non-index
+        // pages so this branch should only handle true same-page anchors.
     }
 });
 
@@ -251,11 +258,20 @@ function initActiveNavigation() {
 // Generate dynamic navigation based on current page
 function generateNavigation() {
     const pathName = window.location.pathname;
-    const currentPage = pathName.endsWith('/') ? 'index.html' :
-                      (pathName.split('/').pop() || 'index.html');
+    // Normalize current page to always include ".html" for lookup
+    const rawName = pathName.split('/').pop() || '';
+    const currentPage = rawName === '' ? 'index.html' : (rawName.endsWith('.html') ? rawName : `${rawName}.html`);
     const navMenu = document.querySelector('.nav-menu');
 
     if (!navMenu) return;
+
+    // Helper to produce a root-relative fragment that works for both
+    // deployed (http/https) and local file:// testing.
+    // - On http(s) we want '/#fragment' so the browser navigates to site root.
+    // - On file:// we want 'index.html#fragment' to avoid resolving to the filesystem root.
+    function makeRootFragment(fragment) {
+        return (window.location.protocol === 'file:') ? `index.html#${fragment}` : `/#${fragment}`;
+    }
 
     // Define navigation structure for each page
     const navStructures = {
@@ -268,17 +284,17 @@ function generateNavigation() {
         ],
         'about.html': [
             { text: 'PORTFOLIO', href: 'portfolio.html' },
-            { text: 'REVIEWS', href: 'index.html#reviews' },
-            { text: 'PROCESS', href: 'index.html#process' },
+            { text: 'REVIEWS', href: makeRootFragment('reviews') },
+            { text: 'PROCESS', href: makeRootFragment('process') },
             { text: 'ABOUT', href: 'about.html', current: true },
-            { text: 'CONTACT', href: 'index.html#contact' }
+            { text: 'CONTACT', href: makeRootFragment('contact') }
         ],
         'portfolio.html': [
             { text: 'PORTFOLIO', href: 'portfolio.html', current: true },
-            { text: 'REVIEWS', href: 'index.html#reviews' },
-            { text: 'PROCESS', href: 'index.html#process' },
+            { text: 'REVIEWS', href: makeRootFragment('reviews') },
+            { text: 'PROCESS', href: makeRootFragment('process') },
             { text: 'ABOUT', href: 'about.html' },
-            { text: 'CONTACT', href: 'index.html#contact' }
+            { text: 'CONTACT', href: makeRootFragment('contact') }
         ]
     };
 
