@@ -26,18 +26,20 @@ document.addEventListener('click', function (e) {
     const href = anchor.getAttribute('href');
     if (!href) return;
 
-    // Cross-page anchor, e.g. "index.html#reviews"
+    // Cross-page anchor, e.g. "index.html#reviews" or "/#reviews"
     if (href.includes('#') && !href.startsWith('#')) {
         e.preventDefault();
 
-        const [pagePath, anchorPart] = href.split('#');
+        const [pagePathRaw, anchorPart] = href.split('#');
 
         // Normalize current page and the target pagePath to compare reliably
         const rawName = window.location.pathname.split('/').pop() || '';
         const currentPage = rawName === '' ? 'index.html' : (rawName.endsWith('.html') ? rawName : `${rawName}.html`);
-        const normalizedPagePath = pagePath ? pagePath.replace(/^\//, '') : '';
 
-        // If navigating to a different page, just go there
+        // Normalize target page path: strip leading slash if present
+        const normalizedPagePath = pagePathRaw ? pagePathRaw.replace(/^\//, '') : '';
+
+        // If navigating to a different page, let the browser handle it
         if (normalizedPagePath && normalizedPagePath !== currentPage) {
             window.location.href = href;
             return;
