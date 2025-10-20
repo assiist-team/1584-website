@@ -1278,30 +1278,21 @@
 
         .portfolio-preview-cards {
             display: grid;
-            grid-template-columns: repeat(3, minmax(300px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(3, minmax(350px, 1fr));
+            gap: 32px;
             margin: 48px auto;
-            max-width: 1200px;
+            max-width: 1400px;
             position: relative;
             z-index: 2;
         }
 
-        /* Portfolio cards responsive behavior for narrower screens */
-        @media (max-width: 900px) {
-            .portfolio-preview-cards {
-                grid-template-columns: repeat(2, minmax(300px, 1fr));
-                gap: 20px;
-            }
-        }
-
-        @media (max-width: 600px) {
+        /* Single column layout for smaller screens - no intermediate 2-column state */
+        @media (max-width: 1150px) {
             .portfolio-preview-cards {
                 grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .container {
-                padding: 0 16px;
+                gap: 24px;
+                max-width: 600px;
+                margin: 48px auto;
             }
         }
 

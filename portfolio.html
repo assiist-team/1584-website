@@ -459,11 +459,14 @@
             background-size: 20px 20px;
             background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
             position: relative;
+            aspect-ratio: 4 / 3; /* Consistent aspect ratio for all portfolio items */
+            overflow: hidden;
         }
 
         .portfolio-item-image img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             display: block;
             opacity: 1;
             transition: opacity 0.3s ease;
@@ -1079,14 +1082,7 @@
             const imageContainer = document.createElement('div');
             imageContainer.className = 'portfolio-item-image';
 
-            // Precompute and lock container aspect ratio to the image's intrinsic ratio ASAP
-            const ratioProbe = new Image();
-            ratioProbe.src = getOptimizedImageUrl(imageSrc, '640');
-            ratioProbe.onload = function() {
-                if (this.naturalWidth && this.naturalHeight) {
-                    imageContainer.style.aspectRatio = `${this.naturalWidth} / ${this.naturalHeight}`;
-                }
-            };
+            // Note: Using fixed 4:3 aspect ratio for consistent grid layout
 
             // Create responsive picture element for optimized images
             const picture = document.createElement('picture');
@@ -1104,10 +1100,7 @@
             img.decoding = 'async';
             img.onload = function() {
                 this.style.opacity = '1';
-                // Reduce CLS: set container aspect ratio from natural dimensions once known
-                if (this.naturalWidth && this.naturalHeight) {
-                    imageContainer.style.aspectRatio = `${this.naturalWidth} / ${this.naturalHeight}`;
-                }
+                // Note: Using fixed 4:3 aspect ratio for consistent grid layout
             };
 
             picture.appendChild(source);
