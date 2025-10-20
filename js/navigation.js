@@ -36,11 +36,22 @@ document.addEventListener('click', function (e) {
         const rawName = window.location.pathname.split('/').pop() || '';
         const currentPage = rawName === '' ? 'index.html' : (rawName.endsWith('.html') ? rawName : `${rawName}.html`);
 
-        // Normalize target page path: strip leading slash if present
-        const normalizedPagePath = pagePathRaw ? pagePathRaw.replace(/^\//, '') : '';
+        // Normalize target page path
+        // - "/" or "" should map to "index.html"
+        // - "about" -> "about.html"
+        // - "about.html" stays as is
+        const stripped = (pagePathRaw || '').replace(/^\//, '');
+        let targetPage = '';
+        if (stripped === '') {
+            targetPage = 'index.html';
+        } else if (stripped.endsWith('.html')) {
+            targetPage = stripped;
+        } else {
+            targetPage = `${stripped}.html`;
+        }
 
-        // If navigating to a different page, let the browser handle it
-        if (normalizedPagePath && normalizedPagePath !== currentPage) {
+        // If navigating to a different page (including root '/'), let the browser handle it
+        if (targetPage !== currentPage) {
             window.location.href = href;
             return;
         }
