@@ -443,8 +443,42 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
+// Touch/swipe handling for mobile popup close
+let touchStartY = 0;
+let touchCurrentY = 0;
+
+function handleTouchStart(e) {
+    touchStartY = e.touches[0].clientY;
+}
+
+function handleTouchMove(e) {
+    touchCurrentY = e.touches[0].clientY;
+}
+
+function handleTouchEnd(e) {
+    const popup = document.getElementById('surveyPopup');
+    if (!popup || !popup.classList.contains('active')) return;
+
+    const touchDiff = touchStartY - touchCurrentY;
+    const isSwipeDown = touchDiff < -50; // Minimum swipe distance
+
+    if (isSwipeDown && window.innerWidth <= 768) {
+        // Only allow swipe down on mobile
+        closeSurveyPopup();
+    }
+}
+
 // Initialize popup functionality
 document.addEventListener('DOMContentLoaded', function() {
+    const popup = document.getElementById('surveyPopup');
+
+    // Add touch event listeners to popup for swipe-to-close
+    if (popup) {
+        popup.addEventListener('touchstart', handleTouchStart, { passive: true });
+        popup.addEventListener('touchmove', handleTouchMove, { passive: true });
+        popup.addEventListener('touchend', handleTouchEnd, { passive: true });
+    }
+
     // Find all buttons that should trigger the survey popup
     const triggerButtons = document.querySelectorAll('[data-popup-trigger="survey"], a[href="#contact"]');
 
