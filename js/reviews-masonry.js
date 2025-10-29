@@ -3,6 +3,7 @@
 (function initReviewsMasonry() {
     const gridEl = document.getElementById("reviewsMasonry");
     const loadMoreButton = document.getElementById("reviewsLoadMore");
+    const secondaryCtaButton = document.getElementById("reviewsSecondaryCta");
 
     if (!gridEl) {
         return;
@@ -196,6 +197,12 @@
     const measurementQueue = new Set();
     const MASONRY_TRANSITION_DURATION = 0;
     let masonry = null;
+    const lightboxEl = document.getElementById("reviewLightbox");
+    const lightboxImageEl = lightboxEl ? document.getElementById("reviewLightboxImage") : null;
+    const lightboxCloseEl = lightboxEl ? document.getElementById("reviewLightboxClose") : null;
+    let restoreFocusTo = null;
+
+    const FOCUSABLE_SELECTOR = "a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex='-1'])";
 
     const prefersReducedMotionQuery = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
     let shouldReduceMotion = !!(prefersReducedMotionQuery && prefersReducedMotionQuery.matches);
@@ -226,6 +233,22 @@
         });
 
         gridEl.classList.add("masonry-enabled");
+    }
+
+    if (lightboxEl && lightboxImageEl && lightboxCloseEl) {
+        lightboxEl.addEventListener("click", function handleOverlayClick(event) {
+            if (event.target === lightboxEl) {
+                closeReviewLightbox();
+            }
+        });
+
+        lightboxCloseEl.addEventListener("click", closeReviewLightbox);
+
+        document.addEventListener("keydown", function handleEscape(event) {
+            if (event.key === "Escape" && lightboxEl.classList.contains("is-active")) {
+                closeReviewLightbox();
+            }
+        });
     }
 
     const intersectionObserver = !shouldReduceMotion && "IntersectionObserver" in window
@@ -315,6 +338,73 @@
         gridEl.setAttribute("aria-busy", "true");
     }
 
+    function openReviewLightbox(src, altText) {
+        if (!lightboxEl || !lightboxImageEl || !lightboxCloseEl) {
+            return;
+        }
+
+        restoreFocusTo = document.activeElement && typeof document.activeElement.focus === "function"
+            ? document.activeElement
+            : null;
+
+        lightboxImageEl.src = src;
+        lightboxImageEl.alt = altText || "Guest review screenshot";
+        lightboxEl.hidden = false;
+        lightboxEl.classList.add("is-active");
+        lightboxEl.setAttribute("aria-hidden", "false");
+        lightboxEl.addEventListener("keydown", trapLightboxFocus);
+
+        window.requestAnimationFrame(function focusCloseButton() {
+            lightboxCloseEl.focus();
+        });
+    }
+
+    function closeReviewLightbox() {
+        if (!lightboxEl || !lightboxImageEl || !lightboxCloseEl) {
+            return;
+        }
+
+        lightboxEl.classList.remove("is-active");
+        lightboxEl.setAttribute("aria-hidden", "true");
+        lightboxEl.removeEventListener("keydown", trapLightboxFocus);
+
+        window.setTimeout(function finalizeClose() {
+            if (!lightboxEl.classList.contains("is-active")) {
+                lightboxEl.hidden = true;
+                lightboxImageEl.src = "";
+            }
+        }, 220);
+
+        if (restoreFocusTo && typeof restoreFocusTo.focus === "function") {
+            restoreFocusTo.focus();
+        }
+        restoreFocusTo = null;
+    }
+
+    function trapLightboxFocus(event) {
+        if (!lightboxEl || event.key !== "Tab") {
+            return;
+        }
+
+        const focusableNodes = lightboxEl.querySelectorAll(FOCUSABLE_SELECTOR);
+        if (!focusableNodes.length) {
+            return;
+        }
+
+        const first = focusableNodes[0];
+        const last = focusableNodes[focusableNodes.length - 1];
+        const isShiftPressed = event.shiftKey;
+        const active = document.activeElement;
+
+        if (!isShiftPressed && active === last) {
+            event.preventDefault();
+            first.focus();
+        } else if (isShiftPressed && active === first) {
+            event.preventDefault();
+            last.focus();
+        }
+    }
+
     function createMasonryItem(src, position) {
         const item = document.createElement("div");
         item.className = "masonry-item";
@@ -326,6 +416,10 @@
         const content = document.createElement("div");
         content.className = "masonry-item__content";
 
+        const trigger = document.createElement("button");
+        trigger.type = "button";
+        trigger.className = "masonry-item__trigger";
+
         if (!shouldReduceMotion) {
             const delayInMs = Math.min((position % 12) * 45, 320);
             content.style.transitionDelay = delayInMs + "ms";
@@ -333,7 +427,7 @@
 
         const image = document.createElement("img");
         image.src = src;
-        image.alt = "";
+        image.alt = "Guest review screenshot";
         image.loading = "lazy";
         image.decoding = "async";
 
@@ -361,7 +455,12 @@
             resizeObserver.observe(image);
         }
 
-        content.appendChild(image);
+        trigger.addEventListener("click", function handleTriggerClick() {
+            openReviewLightbox(src, image.alt);
+        });
+
+        trigger.appendChild(image);
+        content.appendChild(trigger);
         item.appendChild(content);
 
         if (image.complete && image.naturalWidth > 0) {
@@ -428,9 +527,24 @@
         }
 
         const hasMore = nextIndex < shuffledSources.length;
-        loadMoreButton.disabled = !hasMore;
-        loadMoreButton.hidden = !hasMore;
-        loadMoreButton.setAttribute("aria-hidden", String(!hasMore));
+
+        if (hasMore) {
+            loadMoreButton.hidden = false;
+            loadMoreButton.setAttribute("aria-hidden", "false");
+
+            if (secondaryCtaButton) {
+                secondaryCtaButton.hidden = false;
+                secondaryCtaButton.setAttribute("aria-hidden", "false");
+            }
+        } else {
+            loadMoreButton.hidden = true;
+            loadMoreButton.setAttribute("aria-hidden", "true");
+
+            if (secondaryCtaButton) {
+                secondaryCtaButton.hidden = true;
+                secondaryCtaButton.setAttribute("aria-hidden", "true");
+            }
+        }
     }
 
     function handleLoadMoreClick(event) {
