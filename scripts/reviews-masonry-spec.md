@@ -31,7 +31,7 @@ Why this approach:
 
 ## Files to add / update
 
-- Update: `vacation-rental-toolkit-landing.html` — add grid container markup and hook classes/IDs, include the helper script (inline or external). Keep the toolkit CTAs intact.
+- Update: `toolkit-optin.html` — add grid container markup and hook classes/IDs, include the helper script (inline or external). Keep the toolkit CTAs intact.
 - Keep or use: `property_reviews/images_list.json` (or inline the list for `file://` preview). Either method works — inline is more resilient for local previews.
 - Optional add: `property_reviews/optimized/` — directory with resized WebP/JPEG derivatives created via `scripts/batch_resize.py` or similar.
 - Optional: create `js/reviews-masonry.js` if externalization preferred.
