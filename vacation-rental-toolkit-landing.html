@@ -697,6 +697,9 @@
 
         .masonry-item {
             position: relative;
+        }
+
+        .masonry-item__content {
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
@@ -706,23 +709,22 @@
             transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.2s ease;
         }
 
-        .masonry-item img {
+        .masonry-item__content img {
             width: 100%;
             height: auto;
             display: block;
-            border-radius: inherit;
             transition: opacity 0.4s ease;
         }
 
-        .masonry-item:hover,
-        .masonry-item:focus-within {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
-        }
-
-        .masonry-item.is-visible {
+        .masonry-item.is-visible .masonry-item__content {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        .masonry-item:hover .masonry-item__content,
+        .masonry-item:focus-within .masonry-item__content {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
         }
 
         .reviews-load-more {
@@ -782,6 +784,28 @@
             .masonry-item:hover,
             .masonry-item:focus-within {
                 transform: none;
+            }
+        }
+
+        .reviews-masonry.masonry-enabled {
+            display: block;
+            position: relative;
+        }
+
+        .reviews-masonry.masonry-enabled .masonry-item {
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .reviews-masonry.masonry-enabled .masonry-item {
+                width: calc((100% - 16px) / 2);
+            }
+        }
+
+        @media (min-width: 1100px) {
+            .reviews-masonry.masonry-enabled .masonry-item {
+                width: calc((100% - 32px) / 3);
             }
         }
 
@@ -1011,6 +1035,8 @@
             document.getElementById('surveyPopup').classList.remove('active');
         }
     </script>
+    <script src="https://unpkg.com/imagesloaded@5/dist/imagesloaded.pkgd.min.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js" crossorigin="anonymous"></script>
     <script src="js/reviews-masonry.js"></script>
 </body>
 </html>
