@@ -3,7 +3,6 @@
 (function initReviewsMasonry() {
     const gridEl = document.getElementById("reviewsMasonry");
     const loadMoreButton = document.getElementById("reviewsLoadMore");
-    const secondaryCtaButton = document.getElementById("reviewsSecondaryCta");
 
     if (!gridEl) {
         return;
@@ -531,19 +530,11 @@
         if (hasMore) {
             loadMoreButton.hidden = false;
             loadMoreButton.setAttribute("aria-hidden", "false");
-
-            if (secondaryCtaButton) {
-                secondaryCtaButton.hidden = false;
-                secondaryCtaButton.setAttribute("aria-hidden", "false");
-            }
+            loadMoreButton.style.display = "inline-flex";
         } else {
             loadMoreButton.hidden = true;
             loadMoreButton.setAttribute("aria-hidden", "true");
-
-            if (secondaryCtaButton) {
-                secondaryCtaButton.hidden = true;
-                secondaryCtaButton.setAttribute("aria-hidden", "true");
-            }
+            loadMoreButton.style.display = "none";
         }
     }
 
