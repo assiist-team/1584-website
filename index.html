@@ -53,6 +53,10 @@
             padding: 80px 0;
         }
 
+        .section-hidden {
+            display: none !important;
+        }
+
         /* Navigation */
         .navigation {
             position: fixed;
@@ -205,14 +209,6 @@
                 margin-bottom: 24px;
                 padding: 12px 20px;
                 max-width: 90%;
-            }
-        }
-
-        /* Large desktop overrides */
-        @media (min-width: 1440px) {
-            .hero-subtitle {
-                font-size: clamp(18px, 2.5vw, 24px);
-                max-width: 900px;
             }
         }
 
@@ -399,12 +395,9 @@
         /* Lead Magnet Section */
         .lead-magnet {
             position: relative;
-            background: linear-gradient(135deg, #9a7d55 0%, #D4C5B3 100%);
-            background-image: url('images/textures/fabric-cosmos-mushroom-plain-flat_51.jpg');
-            background-size: auto;
-            background-position: center;
-            background-blend-mode: overlay;
-            min-height: 500px;
+            background: url('images/textures/gray_concrete.jpg') center / cover no-repeat;
+            background-attachment: fixed;
+            min-height: auto;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -418,12 +411,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(
-                135deg,
-                rgba(154, 125, 85, 0.8) 0%,
-                rgba(212, 197, 179, 0.6) 50%,
-                rgba(26, 26, 26, 0.3) 100%
-            );
+            background-color: rgba(148, 111, 81, 0.75);
             z-index: 1;
         }
 
@@ -434,21 +422,30 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(
-                ellipse at center,
-                transparent 0%,
-                rgba(26, 26, 26, 0.1) 100%
-            );
+            background:
+                linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 50%),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, transparent 50%),
+                radial-gradient(
+                    ellipse at center,
+                    transparent 0%,
+                    rgba(26, 26, 26, 0.95) 100%
+                );
             z-index: 2;
         }
 
         .lead-magnet-content {
             position: relative;
             z-index: 3;
-            text-align: center;
+            text-align: left;
             color: #FAFAF7;
-            max-width: 600px;
+            max-width: 1200px;
             padding: 48px 24px;
+        }
+
+        .lead-magnet-content h1,
+        .lead-magnet-content .subtitle,
+        .lead-magnet-content .cta-container {
+            text-align: center;
         }
 
         .lead-magnet h1 {
@@ -462,73 +459,110 @@
         }
 
         .lead-magnet .subtitle {
-            font-size: 18px;
-            line-height: 1.5;
-            margin-bottom: 32px;
-            opacity: 0.95;
-            font-weight: 300;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.2);
-        }
-
-        .toolkit-showcase {
-            display: grid;
-            grid-template-columns: 232px 232px 232px;
-            gap: 60px;
-            margin: 48px 0;
-            justify-content: center;
-        }
-
-        .toolkit-column {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 232px;
-        }
-
-        .toolkit-item {
-            position: relative;
-            overflow: visible;
-            border-radius: 8px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease;
-        }
-
-        .toolkit-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
-        }
-
-        .toolkit-image {
-            position: relative;
-            width: 232px;
-            height: 300px;
-            overflow: hidden;
-            margin: 0 auto;
-        }
-
-        .toolkit-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .toolkit-item:hover .toolkit-image img {
-            transform: scale(1.05);
-        }
-
-        .toolkit-info {
-            color: #FAFAF7;
-            font-size: 14px;
+            font-family: 'Avenir', sans-serif;
+            font-size: clamp(16px, 2vw, 20px);
+            font-weight: 400;
             line-height: 1.4;
-            text-align: center;
-            opacity: 0.9;
-            margin-top: 16px;
-            max-width: 232px;
+            color: #F5F2ED;
+            margin-bottom: 32px;
+            max-width: 900px;
             margin-left: auto;
             margin-right: auto;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 1px 1px 4px rgba(0,0,0,0.8);
+        }
+        
+        /* Grid layout */
+        .grid {
+          display: grid;
+          gap: 1rem;
+          grid-template-columns: minmax(0, 348px);
+          margin: 48px 0;
+          justify-content: center;
+        }
+    
+        @media (min-width: 768px) {
+          .grid {
+            grid-template-columns: repeat(2, 348px);
+          }
+        }
+    
+        @media (min-width: 1100px) {
+          .grid {
+            grid-template-columns: repeat(3, 348px);
+          }
+        }
+    
+        /* Card */
+        .card {
+          
+          border: 0.5px solid rgba(255, 255, 255, 0.15);
+          border-radius: 0.75rem;
+          overflow: hidden;
+          position: relative;
+          box-shadow: 0 12px 30px rgba(0,0,0,0.20), 0 6px 12px rgba(0,0,0,0.12);
+          color: #374151;
+        }
+    
+        /* Image container */
+        .image-container {
+          width: 100%;
+        }
+    
+        .image-wrapper {
+          width: 100%;
+          background-position: center;
+          background-size: cover;
+          position: relative;
+          padding-top: 133.33%; /* 3:4 aspect ratio */
+        }
+    
+        /* Overlay */
+        .overlay {
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          padding: 1.5rem 1rem;
+          background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.85) 12%, rgba(0,0,0,0.7) 25%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0) 85%);
+        }
+    
+        /* Typography */
+        .card-title {
+          font-family: 'Baskerville', Palatino, Garamond, serif;
+          font-size: 2rem;
+          font-weight: 400;
+          color: #ffffff;
+          line-height: 1.25;
+          margin: 0;
+        }
+    
+        .card-description {
+          font-family: 'Avenir', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          font-size: 0.875rem;
+          line-height: 1.25rem;
+          color: rgba(255, 255, 255, 0.9);
+          margin-top: 0.25rem;
+          margin-bottom: 0;
         }
 
+        /* Background images */
+        .bg-1 {
+            background-image: url('images/lead_magnet_toolkit/budget-estimator.webp');
+        }
+        
+        .bg-2 {
+            background-image: url('images/lead_magnet_toolkit/project-planner.webp');
+        }
+        
+        .bg-3 {
+            background-image: url('images/lead_magnet_toolkit/roi-design-guide.webp');
+        }
+
+        /* CTA Button */
         .cta-container {
             text-align: center;
             margin-top: 48px;
@@ -756,51 +790,32 @@
 
 
             .lead-magnet {
-                min-height: 400px;
+                min-height: auto;
             }
-
+   
             .lead-magnet-content {
                 padding: 32px 16px;
+                max-width: 100%;
+            }
+   
+            .lead-magnet h1 {
+                font-size: clamp(24px, 8vw, 36px);
+            }
+   
+            .lead-magnet .subtitle {
+                font-size: clamp(14px, 4vw, 16px);
+                margin-bottom: 24px;
+                padding: 12px 20px;
+                max-width: 90%;
+            }
+            .grid {
+                gap: 1.5rem;
             }
 
-            .toolkit-showcase {
-                grid-template-columns: 200px 200px;
-                gap: 40px;
-            }
 
-            .toolkit-column {
-                width: 200px;
-            }
-
-            .toolkit-image {
-                width: 100%;
-                height: 258px;
-            }
-
-            .social-proof-section {
-                min-height: 60vh;
-                grid-template-columns: 1fr;
-                padding-top: 120px; /* Account for fixed navigation (80px) + buffer */
-            }
-
-            .social-proof-content {
-                padding: 0 24px;
-            }
-
-            .testimonial-quote {
-                margin-bottom: 36px;
-            }
-
-            .testimonial-quote p {
-                font-size: clamp(20px, 5vw, 28px);
-                line-height: 1.55;
-                text-shadow: 2px 2px 7px rgba(0, 0, 0, 0.8), 1px 1px 3px rgba(0, 0, 0, 0.9);
-                letter-spacing: 0.4px;
-            }
-
-            .google-reviews-btn {
-                padding: 16px 32px;
-                font-size: 14px;
+            .cta-btn {
+                padding: 12px 24px;
+                font-size: 13px;
             }
 
             .modal-container {
@@ -929,22 +944,23 @@
 
 
             .lead-magnet {
-                min-height: 350px;
+                min-height: auto;
             }
-
-            .toolkit-showcase {
-                grid-template-columns: 180px;
-                gap: 32px;
-                justify-content: center;
+   
+            .lead-magnet-content {
+                padding: 32px 16px;
+                max-width: 100%;
             }
-
-            .toolkit-column {
-                width: 180px;
+   
+            .lead-magnet h1 {
+                font-size: clamp(24px, 8vw, 36px);
             }
-
-            .toolkit-image {
-                width: 100%;
-                height: 233px;
+   
+            .lead-magnet .subtitle {
+                font-size: 16px;
+            }
+            .grid {
+                gap: 1.5rem;
             }
 
             .cta-btn {
@@ -1056,8 +1072,16 @@
             html, body { overflow-x: hidden; }
         }
 
-        /* Desktop Enhancements */
+        /* Large desktop overrides */
         @media (min-width: 1440px) {
+            .hero-subtitle {
+                font-size: clamp(18px, 2.5vw, 24px);
+                max-width: 600px;
+            }
+            .lead-magnet .subtitle {
+                font-size: clamp(18px, 2.5vw, 24px);
+                max-width: 900px;
+            }
             .hero h1 {
                 font-size: 84px;
             }
@@ -1680,6 +1704,60 @@
         </div>
     </section>
 
+    <!-- Lead Magnet Section -->
+    <a href="vacation-rental-toolkit-landing.html" style="text-decoration: none; color: inherit;">
+    <section class="lead-magnet section section-hidden">
+        <div class="container">
+            <div class="lead-magnet-content">
+                <h1>Free Vacation Rental Toolkit</h1>
+                <p class="subtitle">Our custom set of investor tools designed to help you add $20,000 to your property's Net Operating Income using Interior Design</p>
+
+                <div class="grid">
+                    <!-- Card 1: Budget Estimator -->
+                    <div class="card">
+                      <div class="image-container">
+                        <div class="image-wrapper bg-1">
+                          <div class="overlay">
+                            <h2 class="card-title">Budget Estimator</h2>
+                            <p class="card-description">Estimates interior design project budgets</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              
+                    <!-- Card 2: Project Planner -->
+                    <div class="card">
+                      <div class="image-container">
+                        <div class="image-wrapper bg-2">
+                          <div class="overlay">
+                            <h2 class="card-title">ROI Estimator</h2>
+                            <p class="card-description">Estimates ROI from interior design</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              
+                    <!-- Card 3: Interior Design ROI Guide -->
+                    <div class="card">
+                      <div class="image-container">
+                        <div class="image-wrapper bg-3">
+                          <div class="overlay">
+                            <h2 class="card-title">ROI Design Method</h2>
+                            <p class="card-description">Our method for high-ROI interior design</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="cta-container">
+                    <a class="cta-btn" href="vacation-rental-toolkit-landing.html">GET THE FREE TOOLKIT</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    </a>
+
     <!-- Process Section -->
     <section id="process" class="process-section section">
         <div class="container">
@@ -1770,10 +1848,10 @@
             <div class="footer-section">
                 <h3>Navigation</h3>
                 <ul class="footer-links">
-                    <li><a href="about.html">About Us</a></li>
                     <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
                     <li><a href="#process">Process</a></li>
+                    <li><a href="about.html">About Us</a></li>
                 </ul>
             </div>
         </div>
@@ -1810,6 +1888,27 @@
     <!-- Shared Navigation JavaScript -->
     <script src="js/navigation.js"></script>
     <script src="https://links.1584design.com/js/form_embed.js"></script>
+    <script>
+        // CTA Button functionality for Lead Magnet
+        document.querySelector('.lead-magnet .cta-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+
+            // Simulate toolkit signup action
+            console.log('Sourcebook signup initiated:', {
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent
+            });
+
+            // Visual feedback
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+
+            // Here you would typically open a signup modal or redirect to signup page
+            alert('Signup form would open here. In a real implementation, this would open a modal or redirect to a signup page.');
+        });
+    </script>
 </body>
 </html>
 
