@@ -15,6 +15,84 @@
             box-sizing: border-box;
         }
 
+        @media (max-width: 480px) {
+            .footer {
+                padding: 40px 0 20px;
+                width: 100vw;
+                margin-left: calc(-50vw + 50%);
+                margin-right: calc(-50vw + 50%);
+                overflow-x: hidden;
+            }
+
+            .footer-content {
+                display: grid;
+                grid-template-columns: 1fr !important;
+                gap: 20px;
+                padding: 0 16px;
+                margin: 0;
+                max-width: none;
+                width: 100%;
+                text-align: center;
+            }
+
+            .footer-brand,
+            .footer-section {
+                width: 100%;
+                max-width: none;
+            }
+
+            .footer-logo img {
+                height: 40px;
+            }
+
+            .footer-description {
+                font-size: 14px;
+                line-height: 1.5;
+                margin-bottom: 20px;
+            }
+
+            .footer-section h3 {
+                font-size: 16px;
+                margin-bottom: 16px;
+            }
+
+            .footer-links a,
+            .footer-contact a {
+                font-size: 13px;
+            }
+
+            .footer-social {
+                gap: 12px;
+                justify-content: center;
+            }
+
+            .social-link {
+                width: 36px;
+                height: 36px;
+            }
+
+            .footer-contact {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .footer-contact li {
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+
+            .footer-bottom {
+                padding: 20px 16px 0;
+                margin: 0;
+                max-width: none;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
         .visually-hidden {
             position: absolute;
             width: 1px;
@@ -1008,7 +1086,7 @@
                                 <ul>
                                     <li>Increases in Net Operating Income</li>
                                     <li>Increases in Enterprise Value</li>
-                                    <li>Total Year 1 return from Interior Design</li>
+                                    <li>Total Year 1 Interior Design ROI</li>
                                 </ul>
                             </div>
                         </div>
@@ -1028,9 +1106,9 @@
                             <div class="toolkit-item__details">
                                 <p>Get our proven strategies for creating spaces that attract guests and maximize cash flow with Interior Design.</p>
                                 <ul>
-                                    <li>How to Stop the Scroll</li>
-                                    <li>How to Convert Visitors to Bookers</li>
-                                    <li>How to get Repeat &amp; Referral Bookings</li>
+                                    <li>Stop the Scroll</li>
+                                    <li>Convert Visitors to Bookers</li>
+                                    <li>Get Repeat &amp; Referral Bookings</li>
                                 </ul>
                             </div>
                         </div>
